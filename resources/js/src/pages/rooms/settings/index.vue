@@ -12,14 +12,14 @@
                                 <v-col class="col-text-field" cols="12" sm="12">
                                     <label><span class="text-red">*</span> Room Type Name </label>
                                     <v-text-field
-                                        :rules="[() => !!payload.first_name ||  '']"
-                                        v-model="payload.first_name"
+                                        :rules="[() => !!payload.type ||  '']"
+                                        v-model="payload.type"
                                         filled
                                         dense
                                     ></v-text-field>
-                                    <label><span class="text-red">*</span> Room Type Description </label>
+                                    <label> Room Type Description </label>
                                     <v-textarea
-                                        v-model="payload.first_name"
+                                        v-model="payload.description"
                                         filled
                                         dense
                                         no-resize
@@ -29,8 +29,8 @@
                                         <div class="mr-2">
                                             <label><span class="text-red">*</span> Price </label>
                                             <v-text-field
-                                                :rules="[() => !!payload.first_name ||  '']"
-                                                v-model="payload.first_name"
+                                                :rules="[() => payload.extra_person_rate > 0 || '']"
+                                                v-model="payload.price"
                                                 type="number"
                                                 filled
                                                 dense
@@ -40,8 +40,8 @@
                                         <div>
                                             <label><span class="text-red">*</span> Extra Person Rate </label>
                                             <v-text-field
-                                                :rules="[() => !!payload.first_name ||  '']"
-                                                v-model="payload.first_name"
+                                                :rules="[() => payload.extra_person_rate > 0 || '']"
+                                                v-model="payload.extra_person_rate"
                                                 type="number"
                                                 filled
                                                 dense
@@ -56,7 +56,7 @@
                 </v-card-text>
                 <v-card-actions>
                     <v-col class="col-text-field" align="end">
-                        <v-btn color="error" @click="$emit('cancel')">Cancel</v-btn>
+                        <v-btn color="error" @click="cancel">Cancel</v-btn>
                         <v-btn color="success" @click="save" class="ml-2">Save</v-btn>
                     </v-col>
                 </v-card-actions>
@@ -113,7 +113,7 @@ export default {
         return {
             admin:{},
             payload:{},
-            showForm:true,
+            showForm:false,
             isdelete:false,
             admins:[],
             payload:{},
@@ -228,11 +228,7 @@ export default {
             })
         },
         clear(){
-            this.payload.first_name = ''
-            this.payload.last_name = ''
-            this.payload.email = ''
-            this.payload.department_id = ''
-            this.payload.password = ''
+            this.payload = {}
             this.details = {}
             this.showForm = false
             this.isdelete = false

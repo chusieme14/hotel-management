@@ -12,7 +12,7 @@ export default [
         admin:true
     },
     {
-        name:'Settings',
+        name:'Room Type',
         icon:'mdi-cogs',
         route: 'room-type',
         admin:false,
