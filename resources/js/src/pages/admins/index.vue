@@ -8,7 +8,7 @@
                 @search="fetchPage"
                 @resetFilters="resetFilter"
                 @filterRecord="fetchPage"
-                :disable="admin.department_id!=0?['addNew']:['']"
+                hide="['filter']"
             >
                 <template v-slot:custom_filter>
                     <admin-filter
@@ -33,8 +33,14 @@
                 fixed-header
             >
                 <!-- @click:row="viewRecord" -->
-                <template v-slot:item.department="{ item }">
-                    {{item.department.abbreviation}}
+                <template v-slot:item.shift="{ item }">
+                    {{item.shift==1?'Morning':'Night'}}
+                </template>
+                <template v-slot:item.status="{ item }">
+                    {{item.status==1?'Active':'Deactivated'}}
+                </template>
+                <template v-slot:item.updated_at="{ item }">
+                    {{_formatDate(item.updated_at)}}
                 </template>
                 <template v-slot:item.action="{ item }">
                     <v-row>
@@ -46,7 +52,6 @@
                         <table-action :item="item" 
                             @editItem="showEdit" 
                             @deleteItem="showDelete"
-                            :disable="admin.department_id!=0?['edit','delete']:['']"
                         ></table-action>
                     </v-row>
                 </template>
@@ -85,14 +90,13 @@ export default {
     data(){
         return {
             admin:{},
-            payload:{},
             showForm:false,
             isdelete:false,
             admins:[],
             payload:{},
             details:{},
             data: {
-                title: "Admins",
+                title: "Users",
                 isFetching: false,
                 keyword: "",
                 filter:{}
@@ -124,10 +128,22 @@ export default {
                     value: 'email',
                 },
                 {
-                    text: 'Department',
+                    text: 'Shift',
                     align: 'start',
                     sortable: true,
-                    value: 'department',
+                    value: 'shift',
+                },
+                {
+                    text: 'Status',
+                    align: 'start',
+                    sortable: false,
+                    value: 'status',
+                },
+                {
+                    text: 'Updated',
+                    align: 'start',
+                    sortable: true,
+                    value: 'updated_at',
                 },
                 {
                     text: 'Action',
@@ -163,7 +179,7 @@ export default {
                 params = params + this._createFilterParams(this.data.filter)
                 if(this.data.keyword)
                     params = params + '&keyword=' + this.data.keyword
-            axios.get(`/admin/admins?${params}`).then(({data})=>{
+            axios.get(`/admin/users?${params}`).then(({data})=>{
                 this.admins = data.data
                 this.total = data.total
                 this.data.isFetching = false
@@ -173,13 +189,13 @@ export default {
             if (this.payload.id) {
                 delete this.payload.created_at
                 delete this.payload.updated_at
-                axios.put(`/admin/admins/${this.payload.id}`, this.payload).then(({data})=>{
+                axios.put(`/admin/users/${this.payload.id}`, this.payload).then(({data})=>{
                     this.fetchPage()
                     this.clear()
                 })
                 return
             }
-            axios.post(`/admin/admins`, this.payload).then(({data})=>{
+            axios.post(`/admin/users`, this.payload).then(({data})=>{
                 this.fetchPage()
                 this.clear()
             })
@@ -195,7 +211,7 @@ export default {
             this.isdelete = true
         },
         remove(){
-            axios.delete(`/admin/admins/${this.payload.id}`).then(({data})=>{
+            axios.delete(`/admin/users/${this.payload.id}`).then(({data})=>{
                 this.fetchPage()
                 this.clear()
             })
@@ -204,7 +220,8 @@ export default {
             this.payload.first_name = ''
             this.payload.last_name = ''
             this.payload.email = ''
-            this.payload.department_id = ''
+            this.payload.status = 1
+            this.payload.shift = null
             this.payload.password = ''
             this.details = {}
             this.showForm = false

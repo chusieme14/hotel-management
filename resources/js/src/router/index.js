@@ -1,7 +1,7 @@
 import Axios from 'axios'
 import Vue from 'vue'
 import Router from 'vue-router'
-import admin from './admin'
+import user from './user'
 import room from './room'
 import { store } from '../store/store'
 Vue.use(Router)
@@ -14,7 +14,7 @@ const router = new Router({
     },
 
     routes: [
-        ...admin,
+        ...user,
         ...room,
         {
             path:'/login',
