@@ -432,42 +432,69 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         itemsPerPage: 15
       },
       total: 0,
-      headers: [{
-        text: 'Id',
+      headers: [// {
+      //     text: 'Id',
+      //     align: 'start',
+      //     sortable: true,
+      //     value: 'id',
+      // },
+      {
+        text: 'Room number',
         align: 'start',
         sortable: true,
-        value: 'id'
+        value: 'room'
       }, {
-        text: 'Name',
+        text: 'Client name',
         align: 'start',
         sortable: true,
-        value: 'fullname'
+        value: 'client_name'
       }, {
-        text: 'Email',
+        text: 'Contact number',
         align: 'start',
-        sortable: true,
-        value: 'email'
+        sortable: false,
+        value: 'contact_number'
       }, {
-        text: 'Shift',
+        text: 'Extra persons',
         align: 'start',
         sortable: true,
-        value: 'shift'
+        value: 'extra_persons'
+      }, {
+        text: 'Extra hours',
+        align: 'start',
+        sortable: false,
+        value: 'extra_hours'
+      }, {
+        text: 'Start date',
+        align: 'start',
+        sortable: false,
+        value: 'start_date'
+      }, {
+        text: 'End date',
+        align: 'start',
+        sortable: false,
+        value: 'end_date'
       }, {
         text: 'Status',
         align: 'start',
         sortable: false,
         value: 'status'
       }, {
-        text: 'Updated',
+        text: 'Regular bill',
         align: 'start',
-        sortable: true,
-        value: 'updated_at'
+        sortable: false,
+        value: 'regular_bill'
       }, {
-        text: 'Action',
+        text: 'Total bill',
         align: 'start',
-        sortable: true,
-        value: 'action'
-      }]
+        sortable: false,
+        value: 'total_bill'
+      } // {
+      //     text: 'Action',
+      //     align: 'start',
+      //     sortable: true,
+      //     value: 'action',
+      // },
+      ]
     };
   },
   created: function created() {

@@ -25,6 +25,7 @@ class CreateCheckInsTable extends Migration
             $table->double('total_paid');
             $table->dateTime('start_date');
             $table->dateTime('end_date');
+            $table->integer('status')->default(1);
             $table->timestamps();
         });
     }
