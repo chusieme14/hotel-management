@@ -71,7 +71,7 @@
             <div class="">
                 <slot name="custom_actions"></slot>
             </div>
-            <v-menu offset-y left nudge-bottom="5" :close-on-content-click="false">
+            <v-menu v-if="!hide.includes('filter')" offset-y left nudge-bottom="5" :close-on-content-click="false">
                 <template v-slot:activator="{ on: menu, attrs }">
                     <v-tooltip color="success" bottom>
                         <template v-slot:activator="{ on: tooltip }">

@@ -11,5 +11,11 @@ export default [
         route:'admins',
         admin:true
     },
+    {
+        name:'Settings',
+        icon:'mdi-cogs',
+        route: 'room-type',
+        admin:false,
+    },
     
 ]
