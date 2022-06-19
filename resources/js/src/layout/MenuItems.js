@@ -6,9 +6,9 @@ export default [
         admin:false
     },
     {
-        name:'Admins',
+        name:'Users',
         icon:'mdi-account-group',
-        route:'admins',
+        route:'users',
         admin:true
     },
     {

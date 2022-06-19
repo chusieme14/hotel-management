@@ -17,7 +17,7 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
         // if(!auth()->attempt($data)){
-        $user = User::where('email',$data['email'])->first();
+        $user = User::where('email',$data['email'])->where('status', true)->first();
         if(!$user){
             return response(['error_message' => 'Incorrect credentials']);
         }

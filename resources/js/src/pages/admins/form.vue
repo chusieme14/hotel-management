@@ -1,6 +1,6 @@
 <template>
     <v-card>
-        <v-card-title>{{payload.id?'Edit':'Add'}} Admin</v-card-title>
+        <v-card-title>{{payload.id?'Edit':'Add'}} User</v-card-title>
         <v-card-text>
             <v-form ref="form" lazy-validation>
                 <v-container>
@@ -35,13 +35,22 @@
                                 dense
                                 type="password"
                             ></v-text-field>
-                            <label><span class="text-red">*</span> Department</label>
+                            <label><span class="text-red">*</span> Shift</label>
                             <v-autocomplete
-                                :rules="[() => !!payload.department_id ||  '']"
+                                :rules="[() => !!payload.shift ||  '']"
                                 item-value="id"
-                                :items="departments"
-                                item-text="abbreviation"
-                                v-model="payload.department_id"
+                                :items="shifts"
+                                item-text="text"
+                                v-model="payload.shift"
+                                filled
+                                dense
+                            ></v-autocomplete>
+                            <label><span class="text-red">*</span> Status</label>
+                            <v-autocomplete
+                                item-value="id"
+                                :items="status"
+                                item-text="text"
+                                v-model="payload.status"
                                 hide-details="auto"
                                 filled
                                 dense
@@ -71,14 +80,33 @@
 export default {
     props:{
         payload:{
-
         },
         show:{}
     },
     data(){
         return{
             istaken:false,
-            departments:[]
+            departments:[],
+            shifts:[
+                {
+                    id:1,
+                    text:'Morning'
+                },
+                {
+                    id:2,
+                    text:'Nigth'
+                }
+            ],
+            status:[
+                {
+                    id:0,
+                    text:'Deactivate'
+                },
+                {
+                    id:1,
+                    text:'Active'
+                }
+            ]
         }
     },
     methods:{
@@ -108,11 +136,6 @@ export default {
                 })
             }
         },
-        getAllDepartment(){
-            axios.get(`/admin/departments`).then(({data})=>{
-                this.departments = data.data
-            })
-        },
     },
     watch:{
         "show":{
@@ -120,7 +143,7 @@ export default {
                 if(!val || this.$refs.form){
                     this.$refs.form.resetValidation()
                 }else{
-                    this.getAllDepartment()
+                    if(!this.payload.id) this.payload.status = 1
                 }
             },immediate:true
         }

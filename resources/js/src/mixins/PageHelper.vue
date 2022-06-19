@@ -90,7 +90,7 @@ export default {
 
             return this.$options.filters[filter](value);
         },
-        _formatDate(value, format = "ddd, Do MMMM YYYY") {
+        _formatDate(value, format = 'MMMM Do YYYY, h:mm:ss a') {
             if (value) {
                 if (Array.isArray(value)) {
                     for (var i = 0; i <= value.length; i++) {
