@@ -6,9 +6,9 @@ export default[
         name:'rooms'
     },
     {
-        path:'/preferences/rooms',
+        path:'/room-types',
         component: () => import(/* webpackChunkName: "admin" */'../pages/rooms/settings/index.vue'),
         meta:{ requiresAuth:true },
-        name:'room-type'
+        name:'room-types'
     },
 ]

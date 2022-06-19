@@ -12,9 +12,9 @@ export default [
         admin:true
     },
     {
-        name:'Room Type',
-        icon:'mdi-cogs',
-        route: 'room-type',
+        name:'Room Types',
+        icon:'mdi-bed-king',
+        route: 'room-types',
         admin:false,
     },
     
