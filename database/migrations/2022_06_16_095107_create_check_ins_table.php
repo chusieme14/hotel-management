@@ -18,6 +18,7 @@ class CreateCheckInsTable extends Migration
             $table->foreignId('room_id')->constrained('rooms', 'id')->onDelete('cascade');
             $table->unsignedBigInteger('user_id');
             $table->string('client_name');
+            $table->string('contact_number')->nullable();
             $table->integer('extra_persons')->nullable();
             $table->integer('extra_hours')->nullable();
             $table->double('regular_bill');
