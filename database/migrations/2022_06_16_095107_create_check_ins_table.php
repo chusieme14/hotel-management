@@ -16,8 +16,14 @@ class CreateCheckInsTable extends Migration
         Schema::create('check_ins', function (Blueprint $table) {
             $table->id();
             $table->foreignId('room_id')->constrained('rooms', 'id')->onDelete('cascade');
-            $table->integer('extra_persons');
-            $table->double('payment_total');
+            $table->unsignedBigInteger('user_id');
+            $table->string('client_name');
+            $table->integer('extra_persons')->nullable();
+            $table->integer('extra_hours')->nullable();
+            $table->double('regular_bill');
+            $table->double('total_paid');
+            $table->dateTime('start_date');
+            $table->dateTime('end_date');
             $table->timestamps();
         });
     }

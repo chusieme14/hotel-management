@@ -19,6 +19,7 @@ class CreateRoomTypesTable extends Migration
             $table->string('description')->nullable();
             $table->double('price');
             $table->double('extra_person_rate');
+            $table->double('extra_hour_rate');
             $table->timestamps();
         });
     }

@@ -3,6 +3,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import user from './user'
 import room from './room'
+import reservation from './reservation'
 import { store } from '../store/store'
 Vue.use(Router)
 
@@ -16,6 +17,7 @@ const router = new Router({
     routes: [
         ...user,
         ...room,
+        ...reservation,
         {
             path:'/login',
             component: () => import(/* webpackChunkName: "login" */'@/layout/login.vue'),

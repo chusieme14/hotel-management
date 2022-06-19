@@ -2,5 +2,6 @@
     "/js/chunks/404.js": "/js/chunks/404.js",
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
-    "/js/chunks/admin.js": "/js/chunks/admin.js"
+    "/js/chunks/admin.js": "/js/chunks/admin.js",
+    "/js/chunks/reservation.js": "/js/chunks/reservation.js"
 }
