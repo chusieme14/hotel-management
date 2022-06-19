@@ -764,7 +764,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return _ref = {
       admin: {},
       payload: {},
-      showForm: true,
+      showForm: false,
       isdelete: false,
       admins: []
     }, _defineProperty(_ref, "payload", {}), _defineProperty(_ref, "details", {}), _defineProperty(_ref, "data", {
@@ -905,11 +905,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     },
     clear: function clear() {
-      this.payload.first_name = '';
-      this.payload.last_name = '';
-      this.payload.email = '';
-      this.payload.department_id = '';
-      this.payload.password = '';
+      this.payload = {};
       this.details = {};
       this.showForm = false;
       this.isdelete = false;
@@ -1318,7 +1314,7 @@ var render = function () {
         "v-card-text",
         [
           _c("table-header", {
-            attrs: { data: _vm.data, hide: "['filter']" },
+            attrs: { data: _vm.data, hide: ["filter"] },
             on: {
               addNew: _vm.addNew,
               refresh: _vm.fetchPage,
@@ -1580,25 +1576,22 @@ var render = function () {
                                     attrs: {
                                       rules: [
                                         function () {
-                                          return !!_vm.payload.first_name || ""
+                                          return !!_vm.payload.type || ""
                                         },
                                       ],
                                       filled: "",
                                       dense: "",
                                     },
                                     model: {
-                                      value: _vm.payload.first_name,
+                                      value: _vm.payload.type,
                                       callback: function ($$v) {
-                                        _vm.$set(_vm.payload, "first_name", $$v)
+                                        _vm.$set(_vm.payload, "type", $$v)
                                       },
-                                      expression: "payload.first_name",
+                                      expression: "payload.type",
                                     },
                                   }),
                                   _vm._v(" "),
                                   _c("label", [
-                                    _c("span", { staticClass: "text-red" }, [
-                                      _vm._v("*"),
-                                    ]),
                                     _vm._v(" Room Type Description "),
                                   ]),
                                   _vm._v(" "),
@@ -1610,11 +1603,15 @@ var render = function () {
                                       height: "100",
                                     },
                                     model: {
-                                      value: _vm.payload.first_name,
+                                      value: _vm.payload.description,
                                       callback: function ($$v) {
-                                        _vm.$set(_vm.payload, "first_name", $$v)
+                                        _vm.$set(
+                                          _vm.payload,
+                                          "description",
+                                          $$v
+                                        )
                                       },
-                                      expression: "payload.first_name",
+                                      expression: "payload.description",
                                     },
                                   }),
                                   _vm._v(" "),
@@ -1646,7 +1643,8 @@ var render = function () {
                                               rules: [
                                                 function () {
                                                   return (
-                                                    !!_vm.payload.first_name ||
+                                                    _vm.payload
+                                                      .extra_person_rate > 0 ||
                                                     ""
                                                   )
                                                 },
@@ -1657,15 +1655,15 @@ var render = function () {
                                               "hide-details": "",
                                             },
                                             model: {
-                                              value: _vm.payload.first_name,
+                                              value: _vm.payload.price,
                                               callback: function ($$v) {
                                                 _vm.$set(
                                                   _vm.payload,
-                                                  "first_name",
+                                                  "price",
                                                   $$v
                                                 )
                                               },
-                                              expression: "payload.first_name",
+                                              expression: "payload.price",
                                             },
                                           }),
                                         ],
@@ -1689,7 +1687,8 @@ var render = function () {
                                               rules: [
                                                 function () {
                                                   return (
-                                                    !!_vm.payload.first_name ||
+                                                    _vm.payload
+                                                      .extra_person_rate > 0 ||
                                                     ""
                                                   )
                                                 },
@@ -1700,15 +1699,17 @@ var render = function () {
                                               "hide-details": "",
                                             },
                                             model: {
-                                              value: _vm.payload.first_name,
+                                              value:
+                                                _vm.payload.extra_person_rate,
                                               callback: function ($$v) {
                                                 _vm.$set(
                                                   _vm.payload,
-                                                  "first_name",
+                                                  "extra_person_rate",
                                                   $$v
                                                 )
                                               },
-                                              expression: "payload.first_name",
+                                              expression:
+                                                "payload.extra_person_rate",
                                             },
                                           }),
                                         ],
@@ -1743,11 +1744,7 @@ var render = function () {
                         "v-btn",
                         {
                           attrs: { color: "error" },
-                          on: {
-                            click: function ($event) {
-                              return _vm.$emit("cancel")
-                            },
-                          },
+                          on: { click: _vm.cancel },
                         },
                         [_vm._v("Cancel")]
                       ),

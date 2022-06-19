@@ -17,7 +17,7 @@
                 v-for="item in Menuitems"
                 :key="item.name"
                 :class="getCurrentUrl == item.route ? 'active' : ''"
-                @click.stop="$route.name != item.name?$router.push({name: item.route}):''"
+                @click.stop="$route.name != item.route?$router.push({name: item.route}):''"
             >
                 <v-list-item-icon v-if="drawer">
                     <v-tooltip right color="success">
@@ -47,7 +47,8 @@
                 v-for="item in Menuitems"
                 :key="item.name"
                 :class="getCurrentUrl == item.route ? 'active' : ''"
-                @click.stop="$route.name != item.name?$router.push({name: item.route}):''"
+                @click.stop="$route.name != item.route?$router.push({name: item.route}):''"
+                v-if="item.admin==false"
             >
                 <v-list-item-icon v-if="drawer && item.admin==false">
                     <v-tooltip right color="success">
@@ -60,10 +61,10 @@
                         <span>{{item.name.toUpperCase() }}</span>
                     </v-tooltip>
                 </v-list-item-icon>
-                <v-list-item-icon v-if="!drawer && item.admin==false">
+                <v-list-item-icon v-else>
                     <v-icon>{{item.icon}}</v-icon>
                 </v-list-item-icon>
-                <v-list-item-title v-if="item.admin==false">{{item.name.toUpperCase()}}</v-list-item-title>
+                <v-list-item-title>{{item.name.toUpperCase()}}</v-list-item-title>
             </v-list-item>
         </v-list>
 
@@ -92,6 +93,10 @@ export default {
         logout(){
             this.$emit('logout')
         },
+        test(item){
+            console.log(this.$route.name)
+            console.log(item.name)
+        }
     },
     computed:{
         ...mapGetters(["USER_DETAILS"]),

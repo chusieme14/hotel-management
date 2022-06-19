@@ -6,6 +6,12 @@ export default [
         admin:false
     },
     {
+        name:'Reservations',
+        icon:'mdi-file-account',
+        route:'reservations',
+        admin:true
+    },
+    {
         name:'Users',
         icon:'mdi-account-group',
         route:'users',
@@ -15,7 +21,7 @@ export default [
         name:'Room Types',
         icon:'mdi-bed-king',
         route: 'room-types',
-        admin:false,
+        admin:true,
     },
     
 ]

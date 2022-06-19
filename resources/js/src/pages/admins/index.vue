@@ -8,7 +8,7 @@
                 @search="fetchPage"
                 @resetFilters="resetFilter"
                 @filterRecord="fetchPage"
-                hide="['filter']"
+                :hide="['filter']"
             >
                 <template v-slot:custom_filter>
                     <admin-filter
