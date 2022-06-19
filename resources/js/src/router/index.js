@@ -19,6 +19,13 @@ const router = new Router({
         ...room,
         ...reservation,
         {
+            path:'/',
+            redirect:'rooms',
+            // component: () => import(/* webpackChunkName: "dashboard" */ '../pages/dashboard/index.vue'),
+            meta:{ requiresAuth:true },
+            // name:'rooms'
+        },
+        {
             path:'/login',
             component: () => import(/* webpackChunkName: "login" */'@/layout/login.vue'),
             name:'login'
