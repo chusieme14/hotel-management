@@ -10,13 +10,21 @@
                         <v-container>
                             <v-row>
                                 <v-col class="col-text-field" cols="12" sm="12">
-                                    <label><span class="text-red">*</span> Name </label>
+                                    <label><span class="text-red">*</span> Room Type Name </label>
                                     <v-text-field
                                         :rules="[() => !!payload.first_name ||  '']"
                                         v-model="payload.first_name"
                                         filled
                                         dense
                                     ></v-text-field>
+                                    <label><span class="text-red">*</span> Room Type Description </label>
+                                    <v-textarea
+                                        v-model="payload.first_name"
+                                        filled
+                                        dense
+                                        no-resize
+                                        height="100"
+                                    ></v-textarea>
                                     <v-col cols="12"  class="d-flex child-flex" style="padding: 0px !important">
                                         <div class="mr-2">
                                             <label><span class="text-red">*</span> Price </label>
