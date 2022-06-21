@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\BackOffice;
 
+use App\Helpers\SearchFilterHelpers\Rooms;
 use App\Http\Controllers\Controller;
+use App\Models\Room;
 use Illuminate\Http\Request;
 
 class RoomController extends Controller
@@ -14,7 +16,7 @@ class RoomController extends Controller
      */
     public function index()
     {
-        //
+        return (new Rooms)->searchable();
     }
 
     /**
@@ -25,7 +27,7 @@ class RoomController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Room::create($request->all());
     }
 
     /**
@@ -48,7 +50,7 @@ class RoomController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        Room::where('id', $id)->update($request->all());
     }
 
     /**

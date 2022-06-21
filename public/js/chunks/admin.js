@@ -740,6 +740,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       axios.get("/admin/rooms").then(function (_ref) {
         var data = _ref.data;
         _this.rooms = data.data;
+
+        _this.clear();
       });
     },
     addRoom: function addRoom() {
@@ -750,7 +752,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
         _this2.getRooms();
       });
+    },
+    clear: function clear() {
+      this.isform = false;
+      this.isview = false;
+      this.payload = {};
     }
+  },
+  mounted: function mounted() {
+    this.getRooms();
   },
   components: {
     Statistics: _statistics_vue__WEBPACK_IMPORTED_MODULE_0__["default"],

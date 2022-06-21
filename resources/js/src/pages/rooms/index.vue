@@ -43,15 +43,24 @@ export default {
         getRooms(){
             axios.get(`/admin/rooms`).then(({data})=>{
                 this.rooms = data.data
+                this.clear()
             })
         },
         addRoom(){
             axios.post(`/admin/rooms`, this.payload).then(({data})=>{
                 this.getRooms()
             })
+        },
+        clear(){
+            this.isform = false
+            this.isview = false
+            this.payload = {}
         }
         
 
+    },
+    mounted(){
+        this.getRooms()
     },
     components: {
         Statistics,
