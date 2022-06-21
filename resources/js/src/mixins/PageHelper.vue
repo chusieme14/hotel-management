@@ -102,7 +102,7 @@ export default {
                 }
             }
         },
-        _formatNumber(number, format = "fr") {
+        _formatNumber(number, format = "en") {
             if (!isNaN(number)) {
                 let formatter = new Intl.NumberFormat(format, {
                     minimumFractionDigits: 2

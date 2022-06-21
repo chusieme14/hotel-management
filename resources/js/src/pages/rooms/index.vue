@@ -7,10 +7,20 @@
                 @addNew="showForm"
             >
             </table-header>
-            <Grid :rooms="rooms" @view="viewReservation"/>
+            <v-row no-gutters align="center">
+                <v-col
+                    v-for="room in rooms"
+                    :key="room.id"
+                    class="d-flex child-flex"
+                    cols="4"
+                >
+                    <Grid :room="room" @view="viewReservation" @checkin="openCheckInDialog"/>
+                </v-col>
+            </v-row>
             <view-side :view="isview" @close="isview=false"/>
         </v-card-text>
         <add-form :payload="payload" :isform="isform" @cancel="isform=false" @save="addRoom"/>
+        <check-in :payload="checkinPayload" :dialog="checkInDialog" @close="closeCheckinDialog"></check-in>
     </v-card>
 </template>
 
@@ -19,6 +29,7 @@ import Statistics from "./statistics.vue"
 import Grid from "./view/grid.vue"
 import ViewSide from "./view/view-side.vue"
 import AddForm from "./form/index.vue"
+import CheckIn from "./form/checkin.vue"
 import { mapGetters } from "vuex" 
 export default {
     data() {
@@ -27,9 +38,11 @@ export default {
                 title: "Rooms",
             },
             payload:{},
+            checkinPayload: {},
             rooms:[],
             isview: false,
-            isform: false
+            isform: false,
+            checkInDialog: false
         }
     },
     methods:{
@@ -55,8 +68,28 @@ export default {
             this.isform = false
             this.isview = false
             this.payload = {}
+        },
+        openCheckInDialog(room) {
+            this.checkinPayload = {
+                room_id: room.id,
+                room_type: room.room_type.type,
+                room_number: room.number,
+                room_rate: this._formatNumber(room.room_type.price),
+                room_extra_person: this._formatNumber(room.room_type.extra_person_rate),
+                room_extra_hour: this._formatNumber(room.room_type.extra_hour_rate),
+                room_guest_name: '',
+                room_guest_contact: '',
+                room_guest_address: '',
+                room_guest_extra_person: 0,
+                room_guest_start: this.$moment().format('MMMM DD YYYY, h:mm:ss a'),
+                room_guest_end: ''
+            }
+            this.checkInDialog = true
+        },
+        closeCheckinDialog() {
+            this.checkinPayload = {}
+            this.checkInDialog = false
         }
-        
 
     },
     mounted(){
@@ -66,7 +99,8 @@ export default {
         Statistics,
         Grid,
         ViewSide,
-        AddForm
+        AddForm,
+        CheckIn
     },
     computed:{
         ...mapGetters(["USER_DETAILS"]),

@@ -6,11 +6,14 @@ import vuetify from '@/plugin/vuetify/index'
 import "./src/mixins/index"
 import VueToast from 'vue-toast-notification';
 import { store } from './src/store/store'
+import moment from 'vue-moment'
 // import VeeValidate from 'vee-validate';
 
 import 'vue-toast-notification/dist/index.css';
 // Vue.use(VeeValidate);
 Vue.use(VueToast);
+Vue.use(moment);
+
 const axios = require('axios');
 const files = require.context("./src/components/", true, /\.vue$/i);
 files.keys().map(key =>
@@ -30,5 +33,6 @@ const app = new Vue({
     vuetify,
     store,
     router,
-    VueToast
+    VueToast,
+    moment
 });
