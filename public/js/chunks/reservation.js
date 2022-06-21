@@ -403,7 +403,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -974,7 +973,6 @@ var render = function () {
           _c("table-header", {
             attrs: { data: _vm.data, hide: ["addNew"] },
             on: {
-              addNew: _vm.addNew,
               refresh: _vm.fetchPage,
               search: _vm.fetchPage,
               resetFilters: _vm.resetFilter,

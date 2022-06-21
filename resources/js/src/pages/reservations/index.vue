@@ -3,7 +3,6 @@
         <v-card-text>
             <table-header
                 :data="data"
-                @addNew="addNew"
                 @refresh="fetchPage"
                 @search="fetchPage"
                 @resetFilters="resetFilter"
