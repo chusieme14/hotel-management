@@ -102,6 +102,18 @@ export default {
                 }
             }
         },
+        _formatShowDate(value, format = 'MMMM Do YYYY') {
+            if (value) {
+                if (Array.isArray(value)) {
+                    for (var i = 0; i <= value.length; i++) {
+                        value[i] = moment(value[i]).format(format);
+                    }
+                    return value;
+                } else {
+                    return moment(value).format(format);
+                }
+            }
+        },
         _formatNumber(number, format = "en") {
             if (!isNaN(number)) {
                 let formatter = new Intl.NumberFormat(format, {

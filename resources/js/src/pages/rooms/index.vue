@@ -17,10 +17,10 @@
                     <Grid :room="room" @view="viewReservation" @checkin="openCheckInDialog"/>
                 </v-col>
             </v-row>
-            <view-side :view="isview" @close="isview=false"/>
+            <view-side :selectedRoom="selectedRoom" :view="isview" @close="clear"/>
         </v-card-text>
         <add-form :payload="payload" :isform="isform" @cancel="isform=false" @save="addRoom"/>
-        <check-in :payload="checkinPayload" :dialog="checkInDialog" @close="closeCheckinDialog"></check-in>
+        <check-in :payload="checkinPayload" :selectedRoom="selectedRoom" @checkin="checkIn" :dialog="checkInDialog" @close="closeCheckinDialog"></check-in>
     </v-card>
 </template>
 
@@ -42,12 +42,22 @@ export default {
             rooms:[],
             isview: false,
             isform: false,
-            checkInDialog: false
+            isShowTotal: false,
+            checkInDialog: false,
+            selectedRoom:{},
         }
     },
     methods:{
-        viewReservation(val){
-            console.log(val)
+        checkIn(){
+            // this.isShowTotal = true
+            this.checkinPayload.user_id = this.USER_DETAILS.id
+            console.log(this.checkinPayload,"test val")
+            axios.post(`/admin/check-ins`, this.checkinPayload).then(({data})=>{
+                this.closeCheckinDialog()
+            })
+        },
+        viewReservation(room){
+            this.selectedRoom = room
             this.isview = true
         },
         showForm(){
@@ -67,9 +77,12 @@ export default {
         clear(){
             this.isform = false
             this.isview = false
+            this.checkInDialog = false
             this.payload = {}
+            this.selectedRoom = {}
         },
         openCheckInDialog(room) {
+            this.selectedRoom = room
             this.checkinPayload = {
                 room_id: room.id,
                 room_type: room.room_type.type,
@@ -81,7 +94,7 @@ export default {
                 room_guest_contact: '',
                 room_guest_address: '',
                 room_guest_extra_person: 0,
-                room_guest_start: this.$moment().format('MMMM DD YYYY, h:mm:ss a'),
+                room_guest_start: this.$moment().format('YYYY-MM-DD'),
                 room_guest_end: ''
             }
             this.checkInDialog = true

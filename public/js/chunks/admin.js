@@ -587,6 +587,240 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/pages/rooms/form/checkin.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/pages/rooms/form/checkin.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    dialog: {},
+    payload: {},
+    selectedRoom: {}
+  },
+  data: function data() {
+    return {
+      date_dialog: false,
+      dialog_start: false
+    };
+  },
+  methods: {
+    save: function save() {
+      this.$emit('checkin');
+    }
+  },
+  computed: {
+    computeRoomRate: function computeRoomRate() {
+      if (this.payload.room_guest_end) {
+        return this.payload.total_room_rate = parseInt(this.selectedRoom.room_type.price) * this.$moment(this.payload.room_guest_end, "YYYY-MM-DD").diff(this.payload.room_guest_start, 'days');
+      }
+
+      return 0;
+    },
+    computeAdditional: function computeAdditional() {
+      return this.payload.total_ads = this.selectedRoom.room_type.extra_person_rate * this.payload.room_guest_extra_person;
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/pages/rooms/form/index.vue?vue&type=script&lang=js&":
 /*!**************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/pages/rooms/form/index.vue?vue&type=script&lang=js& ***!
@@ -686,7 +920,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _view_grid_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./view/grid.vue */ "./resources/js/src/pages/rooms/view/grid.vue");
 /* harmony import */ var _view_view_side_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./view/view-side.vue */ "./resources/js/src/pages/rooms/view/view-side.vue");
 /* harmony import */ var _form_index_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./form/index.vue */ "./resources/js/src/pages/rooms/form/index.vue");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _form_checkin_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./form/checkin.vue */ "./resources/js/src/pages/rooms/form/checkin.vue");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
@@ -709,6 +944,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -721,42 +967,82 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         title: "Rooms"
       },
       payload: {},
+      checkinPayload: {},
       rooms: [],
       isview: false,
-      isform: false
+      isform: false,
+      isShowTotal: false,
+      checkInDialog: false,
+      selectedRoom: {}
     };
   },
   methods: {
-    viewReservation: function viewReservation(val) {
-      console.log(val);
+    checkIn: function checkIn() {
+      var _this = this;
+
+      // this.isShowTotal = true
+      this.checkinPayload.user_id = this.USER_DETAILS.id;
+      console.log(this.checkinPayload, "test val");
+      axios.post("/admin/check-ins", this.checkinPayload).then(function (_ref) {
+        var data = _ref.data;
+
+        _this.closeCheckinDialog();
+      });
+    },
+    viewReservation: function viewReservation(room) {
+      this.selectedRoom = room;
       this.isview = true;
     },
     showForm: function showForm() {
       this.isform = true;
     },
     getRooms: function getRooms() {
-      var _this = this;
+      var _this2 = this;
 
-      axios.get("/admin/rooms").then(function (_ref) {
-        var data = _ref.data;
-        _this.rooms = data.data;
+      axios.get("/admin/rooms").then(function (_ref2) {
+        var data = _ref2.data;
+        _this2.rooms = data.data;
 
-        _this.clear();
+        _this2.clear();
       });
     },
     addRoom: function addRoom() {
-      var _this2 = this;
+      var _this3 = this;
 
-      axios.post("/admin/rooms", this.payload).then(function (_ref2) {
-        var data = _ref2.data;
+      axios.post("/admin/rooms", this.payload).then(function (_ref3) {
+        var data = _ref3.data;
 
-        _this2.getRooms();
+        _this3.getRooms();
       });
     },
     clear: function clear() {
       this.isform = false;
       this.isview = false;
+      this.checkInDialog = false;
       this.payload = {};
+      this.selectedRoom = {};
+    },
+    openCheckInDialog: function openCheckInDialog(room) {
+      this.selectedRoom = room;
+      this.checkinPayload = {
+        room_id: room.id,
+        room_type: room.room_type.type,
+        room_number: room.number,
+        room_rate: this._formatNumber(room.room_type.price),
+        room_extra_person: this._formatNumber(room.room_type.extra_person_rate),
+        room_extra_hour: this._formatNumber(room.room_type.extra_hour_rate),
+        room_guest_name: '',
+        room_guest_contact: '',
+        room_guest_address: '',
+        room_guest_extra_person: 0,
+        room_guest_start: this.$moment().format('YYYY-MM-DD'),
+        room_guest_end: ''
+      };
+      this.checkInDialog = true;
+    },
+    closeCheckinDialog: function closeCheckinDialog() {
+      this.checkinPayload = {};
+      this.checkInDialog = false;
     }
   },
   mounted: function mounted() {
@@ -766,9 +1052,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     Statistics: _statistics_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
     Grid: _view_grid_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
     ViewSide: _view_view_side_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
-    AddForm: _form_index_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
+    AddForm: _form_index_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
+    CheckIn: _form_checkin_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_4__["mapGetters"])(["USER_DETAILS"]))
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_5__["mapGetters"])(["USER_DETAILS"]))
 });
 
 /***/ }),
@@ -1095,18 +1382,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
-    rooms: {}
+    room: {}
   },
   data: function data() {
     return {};
+  },
+  methods: {
+    timer: function timer() {
+      setInterval(function () {
+        var now = new Date();
+      }, 1000);
+    }
   }
 });
 
@@ -1137,23 +1425,162 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
-    view: {}
+    view: {},
+    selectedRoom: {}
   },
   data: function data() {
     return {
-      drawer: false
+      checkins: [],
+      drawer: false,
+      data: {
+        title: "Reservations",
+        isFetching: false,
+        keyword: "",
+        filter: {}
+      },
+      footerPages: {
+        "items-per-page-options": [5, 10, 15, 20, 30, 40, 50, 100, -1]
+      },
+      options: {
+        itemsPerPage: 15
+      },
+      total: 0,
+      headers: [{
+        text: 'Client name',
+        align: 'start',
+        sortable: true,
+        value: 'client_name'
+      }, {
+        text: 'Start date',
+        align: 'start',
+        sortable: false,
+        value: 'start_date'
+      }, {
+        text: 'End date',
+        align: 'start',
+        sortable: false,
+        value: 'end_date'
+      }, {
+        text: 'Status',
+        align: 'start',
+        sortable: false,
+        value: 'status'
+      }, {
+        text: 'Action',
+        align: 'start',
+        sortable: true,
+        value: 'action'
+      }]
     };
+  },
+  methods: {
+    fetchPage: function fetchPage() {
+      var _this = this;
+
+      this.data.isFetching = true;
+
+      var params = this._createParams(this.options);
+
+      params = params + this._createFilterParams(this.data.filter);
+      if (this.data.keyword) params = params + '&keyword=' + this.data.keyword;
+      params = params + '&room=' + this.selectedRoom.id;
+      axios.get("/admin/check-ins?".concat(params)).then(function (_ref) {
+        var data = _ref.data;
+        _this.checkins = data.data;
+        _this.total = data.total;
+        _this.data.isFetching = false;
+      });
+    },
+    resetFilter: function resetFilter() {},
+    showEdit: function showEdit() {},
+    showDelete: function showDelete() {}
   },
   watch: {
     view: {
       handler: function handler(val) {
         this.drawer = val;
+
+        if (val) {
+          console.log(this.selectedRoom, "selectedRoom");
+        }
       }
     }
   }
 });
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/pages/rooms/form/checkin.vue?vue&type=style&index=0&id=31f304e6&lang=scss&scoped=true&":
+/*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/pages/rooms/form/checkin.vue?vue&type=style&index=0&id=31f304e6&lang=scss&scoped=true& ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".class-total-main[data-v-31f304e6] {\n  display: flex;\n  justify-content: center;\n}\n.class-total-main div[data-v-31f304e6] {\n  display: flex;\n  justify-content: center;\n  flex-direction: column;\n  letter-spacing: 1.5px;\n}\n.class-total-main div h4[data-v-31f304e6] {\n  font-size: 24px !important;\n  margin-bottom: 5px !important;\n}", ""]);
+
+// exports
+
 
 /***/ }),
 
@@ -1173,6 +1600,36 @@ exports.push([module.i, ".grid-main-container[data-v-0234f5d5] {\n  max-height: 
 
 // exports
 
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/pages/rooms/form/checkin.vue?vue&type=style&index=0&id=31f304e6&lang=scss&scoped=true&":
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/pages/rooms/form/checkin.vue?vue&type=style&index=0&id=31f304e6&lang=scss&scoped=true& ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../../../node_modules/css-loader!../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../node_modules/postcss-loader/src??ref--7-2!../../../../../../node_modules/sass-loader/dist/cjs.js??ref--7-3!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./checkin.vue?vue&type=style&index=0&id=31f304e6&lang=scss&scoped=true& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/pages/rooms/form/checkin.vue?vue&type=style&index=0&id=31f304e6&lang=scss&scoped=true&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
 
 /***/ }),
 
@@ -1712,6 +2169,803 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/pages/rooms/form/checkin.vue?vue&type=template&id=31f304e6&scoped=true&":
+/*!********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/pages/rooms/form/checkin.vue?vue&type=template&id=31f304e6&scoped=true& ***!
+  \********************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "v-dialog",
+    {
+      attrs: { persistent: "", width: "1000" },
+      model: {
+        value: _vm.dialog,
+        callback: function ($$v) {
+          _vm.dialog = $$v
+        },
+        expression: "dialog",
+      },
+    },
+    [
+      _c(
+        "v-card",
+        [
+          _c("v-card-title", [
+            _vm._v("CHECK IN FOR ROOM " + _vm._s(_vm.payload.room_number)),
+          ]),
+          _vm._v(" "),
+          _c(
+            "v-card-text",
+            [
+              _c(
+                "v-row",
+                [
+                  _c(
+                    "v-col",
+                    { attrs: { cols: "7" } },
+                    [
+                      _c(
+                        "v-form",
+                        { ref: "validate", attrs: { "lazy-validation": "" } },
+                        [
+                          _c(
+                            "v-container",
+                            [
+                              _c(
+                                "v-row",
+                                [
+                                  _c(
+                                    "v-col",
+                                    {
+                                      staticClass: "col-text-field",
+                                      attrs: { cols: "12", sm: "12" },
+                                    },
+                                    [
+                                      _c(
+                                        "div",
+                                        [
+                                          _c("label", [_vm._v("Type")]),
+                                          _vm._v(" "),
+                                          _c("v-text-field", {
+                                            attrs: {
+                                              readonly: "",
+                                              filled: "",
+                                              dense: "",
+                                            },
+                                            model: {
+                                              value: _vm.payload.room_type,
+                                              callback: function ($$v) {
+                                                _vm.$set(
+                                                  _vm.payload,
+                                                  "room_type",
+                                                  $$v
+                                                )
+                                              },
+                                              expression: "payload.room_type",
+                                            },
+                                          }),
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-col",
+                                        {
+                                          staticClass: "d-flex child-flex",
+                                          staticStyle: {
+                                            padding: "0px !important",
+                                          },
+                                          attrs: { cols: "12" },
+                                        },
+                                        [
+                                          _c(
+                                            "div",
+                                            { staticClass: "mr-2" },
+                                            [
+                                              _c("label", [
+                                                _vm._v("Room rate"),
+                                              ]),
+                                              _vm._v(" "),
+                                              _c("v-text-field", {
+                                                attrs: {
+                                                  readonly: "",
+                                                  filled: "",
+                                                  dense: "",
+                                                },
+                                                model: {
+                                                  value: _vm.payload.room_rate,
+                                                  callback: function ($$v) {
+                                                    _vm.$set(
+                                                      _vm.payload,
+                                                      "room_rate",
+                                                      $$v
+                                                    )
+                                                  },
+                                                  expression:
+                                                    "payload.room_rate",
+                                                },
+                                              }),
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "div",
+                                            [
+                                              _c("label", [
+                                                _vm._v("Extra Hour Rate"),
+                                              ]),
+                                              _vm._v(" "),
+                                              _c("v-text-field", {
+                                                attrs: {
+                                                  readonly: "",
+                                                  filled: "",
+                                                  dense: "",
+                                                },
+                                                model: {
+                                                  value:
+                                                    _vm.payload.room_extra_hour,
+                                                  callback: function ($$v) {
+                                                    _vm.$set(
+                                                      _vm.payload,
+                                                      "room_extra_hour",
+                                                      $$v
+                                                    )
+                                                  },
+                                                  expression:
+                                                    "payload.room_extra_hour",
+                                                },
+                                              }),
+                                            ],
+                                            1
+                                          ),
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-col",
+                                        {
+                                          staticClass: "d-flex child-flex",
+                                          staticStyle: {
+                                            padding: "0px !important",
+                                          },
+                                          attrs: { cols: "12" },
+                                        },
+                                        [
+                                          _c(
+                                            "div",
+                                            { staticClass: "mr-2" },
+                                            [
+                                              _c("label", [
+                                                _vm._v("Extra Person Rate"),
+                                              ]),
+                                              _vm._v(" "),
+                                              _c("v-text-field", {
+                                                attrs: {
+                                                  readonly: "",
+                                                  filled: "",
+                                                  dense: "",
+                                                },
+                                                model: {
+                                                  value:
+                                                    _vm.payload
+                                                      .room_extra_person,
+                                                  callback: function ($$v) {
+                                                    _vm.$set(
+                                                      _vm.payload,
+                                                      "room_extra_person",
+                                                      $$v
+                                                    )
+                                                  },
+                                                  expression:
+                                                    "payload.room_extra_person",
+                                                },
+                                              }),
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "div",
+                                            { staticClass: "mr-2" },
+                                            [
+                                              _c("label", [
+                                                _vm._v("Enter Extra Persons"),
+                                              ]),
+                                              _vm._v(" "),
+                                              _c("v-text-field", {
+                                                attrs: {
+                                                  type: "number",
+                                                  filled: "",
+                                                  dense: "",
+                                                },
+                                                model: {
+                                                  value:
+                                                    _vm.payload
+                                                      .room_guest_extra_person,
+                                                  callback: function ($$v) {
+                                                    _vm.$set(
+                                                      _vm.payload,
+                                                      "room_guest_extra_person",
+                                                      $$v
+                                                    )
+                                                  },
+                                                  expression:
+                                                    "payload.room_guest_extra_person",
+                                                },
+                                              }),
+                                            ],
+                                            1
+                                          ),
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-col",
+                                        {
+                                          staticClass: "d-flex child-flex",
+                                          staticStyle: {
+                                            padding: "0px !important",
+                                          },
+                                          attrs: { cols: "12" },
+                                        },
+                                        [
+                                          _c(
+                                            "div",
+                                            { staticClass: "mr-2" },
+                                            [
+                                              _c(
+                                                "v-dialog",
+                                                {
+                                                  ref: "dialog",
+                                                  attrs: {
+                                                    persistent: "",
+                                                    width: "290px",
+                                                  },
+                                                  scopedSlots: _vm._u([
+                                                    {
+                                                      key: "activator",
+                                                      fn: function (ref) {
+                                                        var on = ref.on
+                                                        var attrs = ref.attrs
+                                                        return [
+                                                          _c("label", [
+                                                            _vm._v(
+                                                              "Start Date"
+                                                            ),
+                                                          ]),
+                                                          _vm._v(" "),
+                                                          _c(
+                                                            "v-text-field",
+                                                            _vm._g(
+                                                              _vm._b(
+                                                                {
+                                                                  attrs: {
+                                                                    filled: "",
+                                                                    dense: "",
+                                                                    hint: "Enter only inital time render",
+                                                                    "persistent-hint":
+                                                                      "",
+                                                                  },
+                                                                  model: {
+                                                                    value:
+                                                                      _vm
+                                                                        .payload
+                                                                        .room_guest_start,
+                                                                    callback:
+                                                                      function (
+                                                                        $$v
+                                                                      ) {
+                                                                        _vm.$set(
+                                                                          _vm.payload,
+                                                                          "room_guest_start",
+                                                                          $$v
+                                                                        )
+                                                                      },
+                                                                    expression:
+                                                                      "payload.room_guest_start",
+                                                                  },
+                                                                },
+                                                                "v-text-field",
+                                                                attrs,
+                                                                false
+                                                              ),
+                                                              on
+                                                            )
+                                                          ),
+                                                        ]
+                                                      },
+                                                    },
+                                                  ]),
+                                                  model: {
+                                                    value: _vm.dialog_start,
+                                                    callback: function ($$v) {
+                                                      _vm.dialog_start = $$v
+                                                    },
+                                                    expression: "dialog_start",
+                                                  },
+                                                },
+                                                [
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "v-date-picker",
+                                                    {
+                                                      attrs: { scrollable: "" },
+                                                      model: {
+                                                        value:
+                                                          _vm.payload
+                                                            .room_guest_start,
+                                                        callback: function (
+                                                          $$v
+                                                        ) {
+                                                          _vm.$set(
+                                                            _vm.payload,
+                                                            "room_guest_start",
+                                                            $$v
+                                                          )
+                                                        },
+                                                        expression:
+                                                          "payload.room_guest_start",
+                                                      },
+                                                    },
+                                                    [
+                                                      _c("v-spacer"),
+                                                      _vm._v(" "),
+                                                      _c(
+                                                        "v-btn",
+                                                        {
+                                                          attrs: {
+                                                            text: "",
+                                                            color: "primary",
+                                                          },
+                                                          on: {
+                                                            click: function (
+                                                              $event
+                                                            ) {
+                                                              _vm.dialog_start = false
+                                                            },
+                                                          },
+                                                        },
+                                                        [
+                                                          _vm._v(
+                                                            "\n                                                        Cancel\n                                                    "
+                                                          ),
+                                                        ]
+                                                      ),
+                                                      _vm._v(" "),
+                                                      _c(
+                                                        "v-btn",
+                                                        {
+                                                          attrs: {
+                                                            text: "",
+                                                            color: "primary",
+                                                          },
+                                                          on: {
+                                                            click: function (
+                                                              $event
+                                                            ) {
+                                                              _vm.dialog_start = false
+                                                            },
+                                                          },
+                                                        },
+                                                        [
+                                                          _vm._v(
+                                                            "\n                                                        OK\n                                                    "
+                                                          ),
+                                                        ]
+                                                      ),
+                                                    ],
+                                                    1
+                                                  ),
+                                                ],
+                                                1
+                                              ),
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "div",
+                                            { staticClass: "mr-2" },
+                                            [
+                                              _c(
+                                                "v-dialog",
+                                                {
+                                                  ref: "dialog",
+                                                  attrs: {
+                                                    persistent: "",
+                                                    width: "290px",
+                                                  },
+                                                  scopedSlots: _vm._u([
+                                                    {
+                                                      key: "activator",
+                                                      fn: function (ref) {
+                                                        var on = ref.on
+                                                        var attrs = ref.attrs
+                                                        return [
+                                                          _c("label", [
+                                                            _vm._v("End Date"),
+                                                          ]),
+                                                          _vm._v(" "),
+                                                          _c(
+                                                            "v-text-field",
+                                                            _vm._g(
+                                                              _vm._b(
+                                                                {
+                                                                  attrs: {
+                                                                    filled: "",
+                                                                    dense: "",
+                                                                    hint: "Guest can extend hours after checkin",
+                                                                    "persistent-hint":
+                                                                      "",
+                                                                  },
+                                                                  model: {
+                                                                    value:
+                                                                      _vm
+                                                                        .payload
+                                                                        .room_guest_end,
+                                                                    callback:
+                                                                      function (
+                                                                        $$v
+                                                                      ) {
+                                                                        _vm.$set(
+                                                                          _vm.payload,
+                                                                          "room_guest_end",
+                                                                          $$v
+                                                                        )
+                                                                      },
+                                                                    expression:
+                                                                      "payload.room_guest_end",
+                                                                  },
+                                                                },
+                                                                "v-text-field",
+                                                                attrs,
+                                                                false
+                                                              ),
+                                                              on
+                                                            )
+                                                          ),
+                                                        ]
+                                                      },
+                                                    },
+                                                  ]),
+                                                  model: {
+                                                    value: _vm.date_dialog,
+                                                    callback: function ($$v) {
+                                                      _vm.date_dialog = $$v
+                                                    },
+                                                    expression: "date_dialog",
+                                                  },
+                                                },
+                                                [
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "v-date-picker",
+                                                    {
+                                                      attrs: {
+                                                        scrollable: "",
+                                                        min: _vm.payload
+                                                          .room_guest_start,
+                                                      },
+                                                      model: {
+                                                        value:
+                                                          _vm.payload
+                                                            .room_guest_end,
+                                                        callback: function (
+                                                          $$v
+                                                        ) {
+                                                          _vm.$set(
+                                                            _vm.payload,
+                                                            "room_guest_end",
+                                                            $$v
+                                                          )
+                                                        },
+                                                        expression:
+                                                          "payload.room_guest_end",
+                                                      },
+                                                    },
+                                                    [
+                                                      _c("v-spacer"),
+                                                      _vm._v(" "),
+                                                      _c(
+                                                        "v-btn",
+                                                        {
+                                                          attrs: {
+                                                            text: "",
+                                                            color: "primary",
+                                                          },
+                                                          on: {
+                                                            click: function (
+                                                              $event
+                                                            ) {
+                                                              _vm.date_dialog = false
+                                                            },
+                                                          },
+                                                        },
+                                                        [
+                                                          _vm._v(
+                                                            "\n                                                        Cancel\n                                                    "
+                                                          ),
+                                                        ]
+                                                      ),
+                                                      _vm._v(" "),
+                                                      _c(
+                                                        "v-btn",
+                                                        {
+                                                          attrs: {
+                                                            text: "",
+                                                            color: "primary",
+                                                          },
+                                                          on: {
+                                                            click: function (
+                                                              $event
+                                                            ) {
+                                                              _vm.date_dialog = false
+                                                            },
+                                                          },
+                                                        },
+                                                        [
+                                                          _vm._v(
+                                                            "\n                                                        OK\n                                                    "
+                                                          ),
+                                                        ]
+                                                      ),
+                                                    ],
+                                                    1
+                                                  ),
+                                                ],
+                                                1
+                                              ),
+                                            ],
+                                            1
+                                          ),
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-col",
+                                        {
+                                          staticClass: "d-flex child-flex",
+                                          staticStyle: {
+                                            padding: "0px !important",
+                                          },
+                                          attrs: { cols: "12" },
+                                        },
+                                        [
+                                          _c(
+                                            "div",
+                                            { staticClass: "mr-2" },
+                                            [
+                                              _c("label", [
+                                                _vm._v("Guest name"),
+                                              ]),
+                                              _vm._v(" "),
+                                              _c("v-text-field", {
+                                                attrs: {
+                                                  filled: "",
+                                                  dense: "",
+                                                },
+                                                model: {
+                                                  value:
+                                                    _vm.payload.room_guest_name,
+                                                  callback: function ($$v) {
+                                                    _vm.$set(
+                                                      _vm.payload,
+                                                      "room_guest_name",
+                                                      $$v
+                                                    )
+                                                  },
+                                                  expression:
+                                                    "payload.room_guest_name",
+                                                },
+                                              }),
+                                            ],
+                                            1
+                                          ),
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-col",
+                                        {
+                                          staticClass: "d-flex child-flex",
+                                          staticStyle: {
+                                            padding: "0px !important",
+                                          },
+                                          attrs: { cols: "12" },
+                                        },
+                                        [
+                                          _c(
+                                            "div",
+                                            { staticClass: "mr-2" },
+                                            [
+                                              _c("label", [
+                                                _vm._v(
+                                                  "Guest's contact number"
+                                                ),
+                                              ]),
+                                              _vm._v(" "),
+                                              _c("v-text-field", {
+                                                attrs: {
+                                                  filled: "",
+                                                  dense: "",
+                                                },
+                                                model: {
+                                                  value:
+                                                    _vm.payload
+                                                      .room_guest_contact,
+                                                  callback: function ($$v) {
+                                                    _vm.$set(
+                                                      _vm.payload,
+                                                      "room_guest_contact",
+                                                      $$v
+                                                    )
+                                                  },
+                                                  expression:
+                                                    "payload.room_guest_contact",
+                                                },
+                                              }),
+                                            ],
+                                            1
+                                          ),
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-col",
+                                        {
+                                          staticClass: "d-flex child-flex",
+                                          staticStyle: {
+                                            padding: "0px !important",
+                                          },
+                                          attrs: { cols: "12" },
+                                        },
+                                        [
+                                          _c(
+                                            "div",
+                                            { staticClass: "mr-2" },
+                                            [
+                                              _c("label", [
+                                                _vm._v("Guest's address"),
+                                              ]),
+                                              _vm._v(" "),
+                                              _c("v-text-field", {
+                                                attrs: {
+                                                  filled: "",
+                                                  dense: "",
+                                                },
+                                                model: {
+                                                  value:
+                                                    _vm.payload
+                                                      .room_guest_address,
+                                                  callback: function ($$v) {
+                                                    _vm.$set(
+                                                      _vm.payload,
+                                                      "room_guest_address",
+                                                      $$v
+                                                    )
+                                                  },
+                                                  expression:
+                                                    "payload.room_guest_address",
+                                                },
+                                              }),
+                                            ],
+                                            1
+                                          ),
+                                        ]
+                                      ),
+                                    ],
+                                    1
+                                  ),
+                                ],
+                                1
+                              ),
+                            ],
+                            1
+                          ),
+                        ],
+                        1
+                      ),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-col",
+                    { staticClass: "class-total-main", attrs: { cols: "5" } },
+                    [
+                      _c("div", [
+                        _c("h4", [
+                          _vm._v("Room rate: " + _vm._s(_vm.computeRoomRate)),
+                        ]),
+                        _vm._v(" "),
+                        _c("h4", [
+                          _vm._v(
+                            "Additional Charges: " +
+                              _vm._s(_vm.computeAdditional)
+                          ),
+                        ]),
+                        _vm._v(" "),
+                        _c("h4", [
+                          _vm._v(
+                            "Total Bill: " +
+                              _vm._s(
+                                _vm.payload.total_room_rate
+                                  ? _vm.payload.total_room_rate +
+                                      _vm.payload.total_ads
+                                  : 0
+                              )
+                          ),
+                        ]),
+                      ]),
+                    ]
+                  ),
+                ],
+                1
+              ),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-card-actions",
+            [
+              _c(
+                "v-col",
+                { staticClass: "col-text-field", attrs: { align: "end" } },
+                [
+                  _c(
+                    "v-btn",
+                    {
+                      attrs: { color: "error" },
+                      on: {
+                        click: function ($event) {
+                          return _vm.$emit("close")
+                        },
+                      },
+                    },
+                    [_vm._v("Cancel")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-btn",
+                    {
+                      staticClass: "ml-2",
+                      attrs: { color: "success" },
+                      on: { click: _vm.save },
+                    },
+                    [_vm._v("Save")]
+                  ),
+                ],
+                1
+              ),
+            ],
+            1
+          ),
+        ],
+        1
+      ),
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/pages/rooms/form/index.vue?vue&type=template&id=523ca49c&":
 /*!******************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/pages/rooms/form/index.vue?vue&type=template&id=523ca49c& ***!
@@ -1879,18 +3133,35 @@ var render = function () {
             on: { addNew: _vm.showForm },
           }),
           _vm._v(" "),
-          _c("Grid", {
-            attrs: { rooms: _vm.rooms },
-            on: { view: _vm.viewReservation },
-          }),
+          _c(
+            "v-row",
+            { attrs: { "no-gutters": "", align: "center" } },
+            _vm._l(_vm.rooms, function (room) {
+              return _c(
+                "v-col",
+                {
+                  key: room.id,
+                  staticClass: "d-flex child-flex",
+                  attrs: { cols: "4" },
+                },
+                [
+                  _c("Grid", {
+                    attrs: { room: room },
+                    on: {
+                      view: _vm.viewReservation,
+                      checkin: _vm.openCheckInDialog,
+                    },
+                  }),
+                ],
+                1
+              )
+            }),
+            1
+          ),
           _vm._v(" "),
           _c("view-side", {
-            attrs: { view: _vm.isview },
-            on: {
-              close: function ($event) {
-                _vm.isview = false
-              },
-            },
+            attrs: { selectedRoom: _vm.selectedRoom, view: _vm.isview },
+            on: { close: _vm.clear },
           }),
         ],
         1
@@ -1904,6 +3175,15 @@ var render = function () {
           },
           save: _vm.addRoom,
         },
+      }),
+      _vm._v(" "),
+      _c("check-in", {
+        attrs: {
+          payload: _vm.checkinPayload,
+          selectedRoom: _vm.selectedRoom,
+          dialog: _vm.checkInDialog,
+        },
+        on: { checkin: _vm.checkIn, close: _vm.closeCheckinDialog },
       }),
     ],
     1
@@ -2420,91 +3700,92 @@ var render = function () {
         },
         [
           _c(
-            "v-row",
-            { attrs: { "no-gutters": "", align: "center" } },
-            _vm._l(_vm.rooms, function (room) {
-              return _c(
-                "v-col",
-                {
-                  key: room.id,
-                  staticClass: "d-flex child-flex",
-                  attrs: { cols: "4" },
-                },
+            "v-card",
+            { staticClass: "pa-2 ma-2", attrs: { outlined: "", tile: "" } },
+            [
+              _c(
+                "v-card-title",
                 [
+                  _c("v-spacer"),
+                  _vm._v(" "),
                   _c(
-                    "v-card",
-                    {
-                      staticClass: "pa-2 ma-2",
-                      attrs: { outlined: "", tile: "" },
-                    },
-                    [
-                      _c("v-card-text", [
-                        _c("div", [_vm._v("Single Standard")]),
-                        _vm._v(" "),
-                        _c("p", { staticClass: "text-h5 text--primary" }, [
-                          _vm._v(
-                            "\n                        ROOM " +
-                              _vm._s(room.number) +
-                              "\n                    "
-                          ),
-                        ]),
-                        _vm._v(" "),
-                        _c("p", [
-                          _c(
-                            "span",
-                            [
-                              _c(
-                                "v-icon",
-                                {
-                                  staticClass: "mr-2",
-                                  attrs: { color: "orange darken-4" },
-                                },
-                                [_vm._v("mdi-archive-settings")]
-                              ),
-                            ],
-                            1
-                          ),
-                          _vm._v(" Available "),
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "text--primary" }, [
-                          _vm._v(
-                            "\n                        Started 2pm\n                    "
-                          ),
-                        ]),
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "v-card-actions",
-                        [
-                          _c("v-spacer"),
-                          _vm._v(" "),
-                          _c("v-btn", { attrs: { color: "success" } }, [
-                            _vm._v("Check in"),
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "v-btn",
-                            {
-                              attrs: { text: "" },
-                              on: {
-                                click: function ($event) {
-                                  return _vm.$emit("view", room)
-                                },
-                              },
-                            },
-                            [_vm._v("View")]
-                          ),
-                        ],
-                        1
-                      ),
-                    ],
+                    "v-btn",
+                    { attrs: { icon: "" } },
+                    [_c("v-icon", [_vm._v("edit")])],
                     1
                   ),
                 ],
                 1
-              )
-            }),
+              ),
+              _vm._v(" "),
+              _c("v-card-text", [
+                _c("div", [_vm._v(_vm._s(_vm.room.room_type.type))]),
+                _vm._v(" "),
+                _c("p", { staticClass: "text-h5 text--primary" }, [
+                  _vm._v(
+                    "\n                    ROOM " +
+                      _vm._s(_vm.room.number) +
+                      "\n                "
+                  ),
+                ]),
+                _vm._v(" "),
+                _c("p", [
+                  _c(
+                    "span",
+                    [
+                      _c(
+                        "v-icon",
+                        {
+                          staticClass: "mr-2",
+                          attrs: { color: "orange darken-4" },
+                        },
+                        [_vm._v("mdi-archive-settings")]
+                      ),
+                    ],
+                    1
+                  ),
+                  _vm._v(" Available "),
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "text--primary" }, [
+                  _vm._v("\n                    Started 2pm\n                "),
+                ]),
+              ]),
+              _vm._v(" "),
+              _c(
+                "v-card-actions",
+                [
+                  _c("v-spacer"),
+                  _vm._v(" "),
+                  _c(
+                    "v-btn",
+                    {
+                      attrs: { color: "success" },
+                      on: {
+                        click: function ($event) {
+                          return _vm.$emit("checkin", _vm.room)
+                        },
+                      },
+                    },
+                    [_vm._v("Check in")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-btn",
+                    {
+                      attrs: { text: "" },
+                      on: {
+                        click: function ($event) {
+                          return _vm.$emit("view", _vm.room)
+                        },
+                      },
+                    },
+                    [_vm._v("View")]
+                  ),
+                ],
+                1
+              ),
+            ],
             1
           ),
         ],
@@ -2549,36 +3830,150 @@ var render = function () {
       },
     },
     [
-      _c(
-        "v-card",
-        [
-          _c(
-            "v-card-title",
+      _vm.selectedRoom.id
+        ? _c(
+            "v-card",
             [
-              _vm._v("Upcoming resevation\n            "),
-              _c("v-spacer"),
+              _c(
+                "v-card-title",
+                [
+                  _vm._v("Upcoming resevation\n                "),
+                  _c("v-spacer"),
+                  _vm._v(" "),
+                  _c(
+                    "v-btn",
+                    {
+                      attrs: { icon: "" },
+                      on: {
+                        click: function ($event) {
+                          return _vm.$emit("close")
+                        },
+                      },
+                    },
+                    [_c("v-icon", [_vm._v("close")])],
+                    1
+                  ),
+                ],
+                1
+              ),
               _vm._v(" "),
               _c(
-                "v-btn",
-                {
-                  attrs: { icon: "" },
-                  on: {
-                    click: function ($event) {
-                      return _vm.$emit("close")
+                "v-card-text",
+                [
+                  _c("table-header", {
+                    attrs: { data: _vm.data, hide: ["addNew"] },
+                    on: {
+                      refresh: _vm.fetchPage,
+                      search: _vm.fetchPage,
+                      resetFilters: _vm.resetFilter,
+                      filterRecord: _vm.fetchPage,
                     },
-                  },
-                },
-                [_c("v-icon", [_vm._v("close")])],
+                    scopedSlots: _vm._u(
+                      [
+                        {
+                          key: "custom_filter",
+                          fn: function () {
+                            return [
+                              _c("admin-filter", {
+                                attrs: { filter: _vm.data.filter },
+                              }),
+                            ]
+                          },
+                          proxy: true,
+                        },
+                      ],
+                      null,
+                      false,
+                      1835823700
+                    ),
+                  }),
+                  _vm._v(" "),
+                  _c("v-data-table", {
+                    staticClass: "cursor-pointer table-fix-height",
+                    attrs: {
+                      headers: _vm.headers,
+                      items: _vm.checkins,
+                      "max-height": "100%",
+                      "single-select": false,
+                      "show-select": "",
+                      search: _vm.data.keyword,
+                      loading: _vm.data.isFetching,
+                      "server-items-length": _vm.total,
+                      "footer-props": _vm.footerPages,
+                      options: _vm.options,
+                      "items-per-page": _vm.options.itemsPerPage,
+                      "fixed-header": "",
+                    },
+                    on: {
+                      "update:options": [
+                        function ($event) {
+                          _vm.options = $event
+                        },
+                        _vm.fetchPage,
+                      ],
+                    },
+                    scopedSlots: _vm._u(
+                      [
+                        {
+                          key: "item.start_date",
+                          fn: function (ref) {
+                            var item = ref.item
+                            return [
+                              _vm._v(
+                                "\n                    " +
+                                  _vm._s(_vm._formatShowDate(item.start_date)) +
+                                  "\n                "
+                              ),
+                            ]
+                          },
+                        },
+                        {
+                          key: "item.end_date",
+                          fn: function (ref) {
+                            var item = ref.item
+                            return [
+                              _vm._v(
+                                "\n                    " +
+                                  _vm._s(_vm._formatShowDate(item.end_date)) +
+                                  "\n                "
+                              ),
+                            ]
+                          },
+                        },
+                        {
+                          key: "item.action",
+                          fn: function (ref) {
+                            var item = ref.item
+                            return [
+                              _c(
+                                "v-row",
+                                [
+                                  _c("table-action", {
+                                    attrs: { item: item },
+                                    on: {
+                                      editItem: _vm.showEdit,
+                                      deleteItem: _vm.showDelete,
+                                    },
+                                  }),
+                                ],
+                                1
+                              ),
+                            ]
+                          },
+                        },
+                      ],
+                      null,
+                      false,
+                      3220421365
+                    ),
+                  }),
+                ],
                 1
               ),
             ],
             1
-          ),
-          _vm._v(" "),
-          _c("v-card-text"),
-        ],
-        1
-      ),
+          )
+        : _vm._e(),
     ],
     1
   )
@@ -2792,6 +4187,93 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_template_id_68a86dfb___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_template_id_68a86dfb___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/src/pages/rooms/form/checkin.vue":
+/*!*******************************************************!*\
+  !*** ./resources/js/src/pages/rooms/form/checkin.vue ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _checkin_vue_vue_type_template_id_31f304e6_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./checkin.vue?vue&type=template&id=31f304e6&scoped=true& */ "./resources/js/src/pages/rooms/form/checkin.vue?vue&type=template&id=31f304e6&scoped=true&");
+/* harmony import */ var _checkin_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./checkin.vue?vue&type=script&lang=js& */ "./resources/js/src/pages/rooms/form/checkin.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _checkin_vue_vue_type_style_index_0_id_31f304e6_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./checkin.vue?vue&type=style&index=0&id=31f304e6&lang=scss&scoped=true& */ "./resources/js/src/pages/rooms/form/checkin.vue?vue&type=style&index=0&id=31f304e6&lang=scss&scoped=true&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _checkin_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _checkin_vue_vue_type_template_id_31f304e6_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _checkin_vue_vue_type_template_id_31f304e6_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "31f304e6",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/src/pages/rooms/form/checkin.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/src/pages/rooms/form/checkin.vue?vue&type=script&lang=js&":
+/*!********************************************************************************!*\
+  !*** ./resources/js/src/pages/rooms/form/checkin.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_checkin_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./checkin.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/pages/rooms/form/checkin.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_checkin_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/src/pages/rooms/form/checkin.vue?vue&type=style&index=0&id=31f304e6&lang=scss&scoped=true&":
+/*!*****************************************************************************************************************!*\
+  !*** ./resources/js/src/pages/rooms/form/checkin.vue?vue&type=style&index=0&id=31f304e6&lang=scss&scoped=true& ***!
+  \*****************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_checkin_vue_vue_type_style_index_0_id_31f304e6_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/style-loader!../../../../../../node_modules/css-loader!../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../node_modules/postcss-loader/src??ref--7-2!../../../../../../node_modules/sass-loader/dist/cjs.js??ref--7-3!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./checkin.vue?vue&type=style&index=0&id=31f304e6&lang=scss&scoped=true& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/pages/rooms/form/checkin.vue?vue&type=style&index=0&id=31f304e6&lang=scss&scoped=true&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_checkin_vue_vue_type_style_index_0_id_31f304e6_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_checkin_vue_vue_type_style_index_0_id_31f304e6_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_checkin_vue_vue_type_style_index_0_id_31f304e6_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_checkin_vue_vue_type_style_index_0_id_31f304e6_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+
+
+/***/ }),
+
+/***/ "./resources/js/src/pages/rooms/form/checkin.vue?vue&type=template&id=31f304e6&scoped=true&":
+/*!**************************************************************************************************!*\
+  !*** ./resources/js/src/pages/rooms/form/checkin.vue?vue&type=template&id=31f304e6&scoped=true& ***!
+  \**************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_checkin_vue_vue_type_template_id_31f304e6_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./checkin.vue?vue&type=template&id=31f304e6&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/pages/rooms/form/checkin.vue?vue&type=template&id=31f304e6&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_checkin_vue_vue_type_template_id_31f304e6_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_checkin_vue_vue_type_template_id_31f304e6_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

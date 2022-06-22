@@ -2,6 +2,10 @@
     <div class="grid-main-container">
         <v-container class="grey lighten-5 mb-6" max-height="70vh" style="overflow: auto">
             <v-card class="pa-2 ma-2" outlined tile>
+                <v-card-title>
+                    <v-spacer></v-spacer>
+                    <v-btn icon><v-icon>edit</v-icon></v-btn>
+                </v-card-title>
                 <v-card-text>
                     <div>{{room.room_type.type}}</div>
                     <p class="text-h5 text--primary">
@@ -14,8 +18,8 @@
                 </v-card-text>
                 <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn v-if="room.status == 0" color="success" @click="$emit('checkin', room)">Check in</v-btn>
-                    <v-btn v-else text @click="$emit('view', room)">View</v-btn>
+                    <v-btn  color="success" @click="$emit('checkin', room)">Check in</v-btn>
+                    <v-btn  text @click="$emit('view', room)">View</v-btn>
                 </v-card-actions>
             </v-card>
         </v-container>

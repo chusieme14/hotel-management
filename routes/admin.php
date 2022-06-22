@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BackOffice\AuthController;
+use App\Http\Controllers\BackOffice\CheckInController;
 use App\Http\Controllers\BackOffice\UserController;
 use App\Http\Controllers\BackOffice\ReservationController;
 use App\Http\Controllers\BackOffice\RoomController;
@@ -18,4 +19,5 @@ Route::group(['middleware'=>['auth:web']],function(){
     Route::resource('reservations', ReservationController::class);
     Route::resource('room-types', RoomTypeController::class);
     Route::resource('rooms', RoomController::class);
+    Route::resource('check-ins', CheckInController::class);
 });

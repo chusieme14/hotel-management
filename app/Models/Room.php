@@ -20,7 +20,13 @@ class Room extends Model
     const CLEANING=2;
     const RESERVED=3;
 
+    protected $with = ['check_in'];
+
     public function room_type(){
         return $this->belongsTo(RoomType::class);
+    }
+
+    public function check_in(){
+        return $this->belongsTo(CheckIn::class);
     }
 }
