@@ -1440,6 +1440,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     dialog: {},
@@ -1447,6 +1453,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
+      confirm_details: {},
+      confirm_type: '',
+      confirm_dialog: false,
       extend_dialog: false,
       total_extend: 0
     };
@@ -1458,8 +1467,32 @@ __webpack_require__.r(__webpack_exports__);
     },
     extendHours: function extendHours() {
       if (!this.$refs.form.validate()) return;
-      this.$emit('extend', this.total_extend);
-      this.closeExtendDialog();
+      this.confirm_details.title = 'Extend';
+      this.confirm_details.message = "Continue to extend hours?";
+      this.confirm_type = 'extend';
+      this.confirm_dialog = true;
+    },
+    checkout: function checkout() {
+      this.confirm_details.title = 'Checkout';
+      this.confirm_details.message = "Continue to checkout?";
+      this.confirm_type = 'checkout';
+      this.confirm_dialog = true;
+    },
+    confirm: function confirm() {
+      if (this.confirm_type == 'extend') {
+        this.$emit('extend', this.total_extend);
+        this.closeExtendDialog();
+      } else {
+        this.$emit('toggle', 2, this.selectedRoom.id);
+      }
+
+      this.cancel();
+    },
+    cancel: function cancel() {
+      this.confirm_details.title = '';
+      this.confirm_details.message = "";
+      this.confirm_type = '';
+      this.confirm_dialog = false;
     }
   },
   computed: {
@@ -1569,7 +1602,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       axios.put("/admin/check-ins/".concat(this.selectedRoom.check_in.id, "/extend"), payload).then(function (_ref2) {
         var data = _ref2.data;
         _this2.selectedRoom.check_in = data;
-        console.log(_this2.selectedRoom);
+      });
+    },
+    toggleStatus: function toggleStatus(status, room_id) {
+      var _this3 = this;
+
+      var payload = {
+        status: status
+      };
+      axios.put("/admin/rooms/".concat(room_id, "/toggle-status"), payload).then(function (_ref3) {
+        var data = _ref3.data;
+
+        _this3.clear();
+
+        _this3.getRooms();
       });
     },
     viewReservation: function viewReservation(room) {
@@ -1580,22 +1626,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.isform = true;
     },
     getRooms: function getRooms() {
-      var _this3 = this;
+      var _this4 = this;
 
-      axios.get("/admin/rooms").then(function (_ref3) {
-        var data = _ref3.data;
-        _this3.rooms = data.data;
+      axios.get("/admin/rooms").then(function (_ref4) {
+        var data = _ref4.data;
+        _this4.rooms = data.data;
 
-        _this3.clear();
+        _this4.clear();
       });
     },
     addRoom: function addRoom() {
-      var _this4 = this;
+      var _this5 = this;
 
-      axios.post("/admin/rooms", this.payload).then(function (_ref4) {
-        var data = _ref4.data;
+      axios.post("/admin/rooms", this.payload).then(function (_ref5) {
+        var data = _ref5.data;
 
-        _this4.getRooms();
+        _this5.getRooms();
       });
     },
     clear: function clear() {
@@ -2027,6 +2073,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     room: {}
@@ -2042,7 +2095,10 @@ __webpack_require__.r(__webpack_exports__);
         text: "available",
         icon: 'bed',
         color: '#00C853'
-      }
+      },
+      confirm_details: {},
+      confirm_type: '',
+      confirm_dialog: false
     };
   },
   mounted: function mounted() {
@@ -2053,9 +2109,9 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       setInterval(function () {
-        if (_this.room.status == 1) {
-          var time_rem = _this.$moment(_this.room.check_in.end_date).diff(_this.$moment(), 'seconds');
+        var time_rem = '';
 
+        if (_this.room.status == 1) {
           if (_this.$moment().unix() > _this.$moment(_this.room.check_in.end_date).unix()) {
             _this.time.status = "Time";
             _this.time.text = "since";
@@ -2069,12 +2125,20 @@ __webpack_require__.r(__webpack_exports__);
             _this.time.color = "#FF6D00";
             time_rem = _this.$moment(_this.room.check_in.end_date).diff(_this.$moment(), 'seconds');
           }
-
-          _this.time.days = _this.addLeadZero(Math.floor(time_rem / 86400));
-          _this.time.hour = _this.addLeadZero(Math.floor(time_rem / 3600 % 24));
-          _this.time.minutes = _this.addLeadZero(Math.floor(time_rem / 60 % 60));
-          _this.time.seconds = _this.addLeadZero(Math.floor(time_rem % 60));
+        } else if (_this.room.status == 2) {
+          _this.time.status = "Cleaning";
+          _this.time.text = "Since";
+          _this.time.icon = "mdi-broom";
+          _this.time.color = "#006064";
+          time_rem = _this.$moment().diff(_this.$moment(_this.room.updated_at), 'seconds');
+        } else {
+          _this.time.status = 'available', _this.time.text = "available", _this.time.icon = 'bed', _this.time.color = '#00C853';
         }
+
+        _this.time.days = _this.addLeadZero(Math.floor(time_rem / 86400));
+        _this.time.hour = _this.addLeadZero(Math.floor(time_rem / 3600 % 24));
+        _this.time.minutes = _this.addLeadZero(Math.floor(time_rem / 60 % 60));
+        _this.time.seconds = _this.addLeadZero(Math.floor(time_rem % 60));
       }, 1000);
     },
     addLeadZero: function addLeadZero(num) {
@@ -2085,6 +2149,22 @@ __webpack_require__.r(__webpack_exports__);
       } else {
         return "0" + string;
       }
+    },
+    finishCleaning: function finishCleaning() {
+      this.confirm_details.title = 'Finish Cleaning';
+      this.confirm_details.message = 'The room will be available after this. Continue?';
+      this.confirm_type = 'cleaning';
+      this.confirm_dialog = true;
+    },
+    cancel: function cancel() {
+      this.confirm_details.title = '';
+      this.confirm_details.message = "";
+      this.confirm_type = '';
+      this.confirm_dialog = false;
+    },
+    confirm: function confirm() {
+      if (this.confirm_type == 'cleaning') this.$emit('toggle', 0, this.room.id);
+      this.cancel();
     }
   }
 });
@@ -4968,6 +5048,7 @@ var render = function () {
                                         {
                                           staticClass: "ml-2",
                                           attrs: { color: "success" },
+                                          on: { click: _vm.checkout },
                                         },
                                         [_vm._v("Check Out")]
                                       ),
@@ -5217,6 +5298,11 @@ var render = function () {
             ],
             1
           ),
+          _vm._v(" "),
+          _c("confirm-dialog", {
+            attrs: { details: _vm.confirm_details, show: _vm.confirm_dialog },
+            on: { cancel: _vm.cancel, confirm: _vm.confirm },
+          }),
         ],
         1
       )
@@ -5281,6 +5367,7 @@ var render = function () {
                     on: {
                       view: _vm.viewReservation,
                       checkin: _vm.openCheckInDialog,
+                      toggle: _vm.toggleStatus,
                     },
                   }),
                 ],
@@ -5292,7 +5379,11 @@ var render = function () {
           _vm._v(" "),
           _c("ViewCheckin", {
             attrs: { selectedRoom: _vm.selectedRoom, dialog: _vm.isview },
-            on: { close: _vm.clear, extend: _vm.extendHours },
+            on: {
+              close: _vm.clear,
+              extend: _vm.extendHours,
+              toggle: _vm.toggleStatus,
+            },
           }),
         ],
         1
@@ -5837,6 +5928,15 @@ var render = function () {
                             },
                             [_vm._v("Check in")]
                           )
+                        : _vm.room.status == 2
+                        ? _c(
+                            "v-btn",
+                            {
+                              attrs: { block: "", depressed: "" },
+                              on: { click: _vm.finishCleaning },
+                            },
+                            [_vm._v(" Finish Cleaning ")]
+                          )
                         : _c(
                             "v-btn",
                             {
@@ -5861,6 +5961,11 @@ var render = function () {
         ],
         1
       ),
+      _vm._v(" "),
+      _c("confirm-dialog", {
+        attrs: { details: _vm.confirm_details, show: _vm.confirm_dialog },
+        on: { cancel: _vm.cancel, confirm: _vm.confirm },
+      }),
     ],
     1
   )
