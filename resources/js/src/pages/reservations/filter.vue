@@ -1,11 +1,11 @@
 <template>
     <div class="filter-main-container">
         <v-flex xs12>
-            <v-flex xs12 sm12 class="d-block mb-12">
-                <label>Department</label>
+            <v-flex sm6 class="d-block mr-3">
+                <label>Status</label>
                 <v-autocomplete
-                    v-model="filter.department_id"
-                    :items="departments"
+                    v-model="filter.status"
+                    :items="status"
                     item-text="name"
                     item-value="id"
                     hide-details
@@ -15,6 +15,50 @@
                     clearable
                 ></v-autocomplete>
             </v-flex>
+            <v-flex sm6 class="d-block">
+                <label>Room type</label>
+                <v-autocomplete
+                    v-model="filter.room_type_id"
+                    :items="roomtypes"
+                    item-text="type"
+                    item-value="id"
+                    hide-details
+                    filled
+                    dense
+                    required
+                    clearable
+                ></v-autocomplete>
+            </v-flex>
+        </v-flex>
+        <v-flex xs12 class="mt-2">
+            <v-flex sm6 class="d-block">
+                <label>Start date</label>
+                <v-menu
+                    v-model="isstart"
+                    :close-on-content-click="false"
+                    :nudge-right="0"
+                    transition="scale-transition"
+                    offset-y
+                    position-y="1"
+                    min-width="auto"
+                >
+                    <template v-slot:activator="{ on, attrs }">
+                    <v-text-field
+                        v-model="filter.start_date"
+                        filled
+                        dense
+                        readonly
+                        v-bind="attrs"
+                        v-on="on"
+                    ></v-text-field>
+                    </template>
+                    <v-date-picker
+                        v-model="filter.start_date"
+                        @input="isstart = false"
+                    ></v-date-picker>
+                </v-menu>
+            </v-flex>
+
         </v-flex>
         <!-- <v-flex xs12>
             <v-flex xs12 sm6 class="d-block mb-5 mr-3">
@@ -85,19 +129,30 @@ export default {
     },
     data(){
         return {
+            isstart:false,
             search_sub: '',
-            departments:[]
+            roomtypes:[],
+            status:[
+                {
+                    id:1,
+                    name:'Waitting'
+                },
+                {
+                    id:2,
+                    name:'Cancelled'
+                }
+            ]
         }
     },
     methods:{
-        getAllDepartment(){
-            axios.get(`/admin/departments`).then(({data})=>{
-                this.departments = data.data
+        getRoomTypes(){
+            axios.get(`/admin/room-types`).then(({data})=>{
+                this.roomtypes = data.data
             })
         },
     },
     created(){
-        this.getAllDepartment()
+        this.getRoomTypes()
     },
     watch:{
         "filter.created_at"(val){

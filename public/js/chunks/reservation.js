@@ -697,6 +697,50 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     filter: {
@@ -708,22 +752,30 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
+      isstart: false,
       search_sub: '',
-      departments: []
+      roomtypes: [],
+      status: [{
+        id: 1,
+        name: 'Waitting'
+      }, {
+        id: 2,
+        name: 'Cancelled'
+      }]
     };
   },
   methods: {
-    getAllDepartment: function getAllDepartment() {
+    getRoomTypes: function getRoomTypes() {
       var _this = this;
 
-      axios.get("/admin/departments").then(function (_ref) {
+      axios.get("/admin/room-types").then(function (_ref) {
         var data = _ref.data;
-        _this.departments = data.data;
+        _this.roomtypes = data.data;
       });
     }
   },
   created: function created() {
-    this.getAllDepartment();
+    this.getRoomTypes();
   },
   watch: {
     "filter.created_at": function filterCreated_at(val) {
@@ -839,6 +891,36 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     payload: {},
@@ -846,8 +928,10 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
+      isstart: false,
+      isend: false,
       istaken: false,
-      departments: [],
+      roomtypes: [],
       shifts: [{
         id: 1,
         text: 'Morning'
@@ -865,40 +949,17 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    save: function save() {
+    getRoomType: function getRoomType() {
       var _this = this;
 
+      axios.get("/admin/room-types").then(function (_ref) {
+        var data = _ref.data;
+        _this.roomtypes = data.data;
+      });
+    },
+    save: function save() {
       if (!this.$refs.form.validate()) return;
-
-      if (this.payload.id) {
-        axios.get("/admin/check-email?email=".concat(this.payload.email, "&id=").concat(this.payload.id)).then(function (_ref) {
-          var data = _ref.data;
-
-          if (data) {
-            _this.istaken = true;
-            setTimeout(function () {
-              _this.istaken = false;
-            }, 3000);
-            return;
-          }
-
-          _this.$emit('save', _this.payload);
-        });
-      } else {
-        axios.get("/admin/check-email?email=".concat(this.payload.email)).then(function (_ref2) {
-          var data = _ref2.data;
-
-          if (data) {
-            _this.istaken = true;
-            setTimeout(function () {
-              _this.istaken = false;
-            }, 3000);
-            return;
-          }
-
-          _this.$emit('save', _this.payload);
-        });
-      }
+      this.$emit('save', this.payload);
     }
   },
   watch: {
@@ -907,7 +968,7 @@ __webpack_require__.r(__webpack_exports__);
         if (!val || this.$refs.form) {
           this.$refs.form.resetValidation();
         } else {
-          if (!this.payload.id) this.payload.status = 1;
+          this.getRoomType();
         }
       },
       immediate: true
@@ -1016,6 +1077,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -1023,13 +1091,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     AdminForm: _form_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
     AdminFilter: _filter_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
-  data: function data() {
+  data: function data(vm) {
     return {
       admin: {},
       showForm: false,
       isdelete: false,
       admins: [],
-      payload: {},
+      payload: {
+        start_date: vm.$moment().format('YYYY-MM-DD')
+      },
       details: {},
       data: {
         title: "Reservations",
@@ -1044,37 +1114,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         itemsPerPage: 15
       },
       total: 0,
-      headers: [// {
-      //     text: 'Id',
-      //     align: 'start',
-      //     sortable: true,
-      //     value: 'id',
-      // },
-      {
-        text: 'Room number',
+      headers: [{
+        text: 'Id',
         align: 'start',
         sortable: true,
-        value: 'room'
+        value: 'id'
       }, {
         text: 'Client name',
         align: 'start',
         sortable: true,
         value: 'client_name'
-      }, {
-        text: 'Contact number',
-        align: 'start',
-        sortable: false,
-        value: 'contact_number'
-      }, {
-        text: 'Extra persons',
-        align: 'start',
-        sortable: true,
-        value: 'extra_persons'
-      }, {
-        text: 'Extra hours',
-        align: 'start',
-        sortable: false,
-        value: 'extra_hours'
       }, {
         text: 'Start date',
         align: 'start',
@@ -1086,45 +1135,35 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         sortable: false,
         value: 'end_date'
       }, {
+        text: 'Room type',
+        align: 'start',
+        sortable: false,
+        value: 'room_type'
+      }, {
         text: 'Status',
         align: 'start',
         sortable: false,
         value: 'status'
       }, {
-        text: 'Regular bill',
+        text: 'Action',
         align: 'start',
-        sortable: false,
-        value: 'regular_bill'
-      }, {
-        text: 'Total bill',
-        align: 'start',
-        sortable: false,
-        value: 'total_bill'
-      } // {
-      //     text: 'Action',
-      //     align: 'start',
-      //     sortable: true,
-      //     value: 'action',
-      // },
-      ]
+        sortable: true,
+        value: 'action'
+      }]
     };
   },
-  created: function created() {
-    this.getLoginUser();
+  created: function created() {//   this.getLoginUser()
   },
   methods: {
     resetFilter: function resetFilter() {
       this.data.filter = {};
       this.fetchPage();
     },
-    getLoginUser: function getLoginUser() {
-      var _this = this;
-
-      axios.get("/admin/get-user").then(function (_ref) {
-        var data = _ref.data;
-        _this.admin = data;
-      });
-    },
+    // getLoginUser(){
+    //   axios.get(`/admin/get-user`).then(({data})=>{
+    //     this.admin = data
+    //   })
+    // },
     cancel: function cancel() {
       this.clear();
     },
@@ -1132,7 +1171,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.showForm = true;
     },
     fetchPage: function fetchPage() {
-      var _this2 = this;
+      var _this = this;
 
       this.data.isFetching = true;
 
@@ -1140,39 +1179,39 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       params = params + this._createFilterParams(this.data.filter);
       if (this.data.keyword) params = params + '&keyword=' + this.data.keyword;
-      axios.get("/admin/users?".concat(params)).then(function (_ref2) {
-        var data = _ref2.data;
-        _this2.admins = data.data;
-        _this2.total = data.total;
-        _this2.data.isFetching = false;
+      axios.get("/admin/reservations?".concat(params)).then(function (_ref) {
+        var data = _ref.data;
+        _this.admins = data.data;
+        _this.total = data.total;
+        _this.data.isFetching = false;
       });
     },
     save: function save() {
-      var _this3 = this;
+      var _this2 = this;
 
       if (this.payload.id) {
         delete this.payload.created_at;
         delete this.payload.updated_at;
-        axios.put("/admin/users/".concat(this.payload.id), this.payload).then(function (_ref3) {
-          var data = _ref3.data;
+        axios.put("/admin/reservations/".concat(this.payload.id), this.payload).then(function (_ref2) {
+          var data = _ref2.data;
 
-          _this3.fetchPage();
+          _this2.fetchPage();
 
-          _this3.clear();
+          _this2.clear();
         });
         return;
       }
 
-      axios.post("/admin/users", this.payload).then(function (_ref4) {
-        var data = _ref4.data;
+      axios.post("/admin/reservations", this.payload).then(function (_ref3) {
+        var data = _ref3.data;
 
-        _this3.fetchPage();
+        _this2.fetchPage();
 
-        _this3.clear();
+        _this2.clear();
       });
     },
     showEdit: function showEdit(val) {
-      var _this4 = this;
+      var _this3 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
         return _regeneratorRuntime().wrap(function _callee$(_context) {
@@ -1180,10 +1219,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return Object.assign(_this4.payload, val);
+                return Object.assign(_this3.payload, val);
 
               case 2:
-                _this4.showForm = true;
+                _this3.showForm = true;
 
               case 3:
               case "end":
@@ -1196,18 +1235,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     showDelete: function showDelete(val) {
       Object.assign(this.payload, val);
       this.details.title = 'Delete';
-      this.details.message = "Are you sure you want to remove ".concat(this.payload.fullname, "?");
+      this.details.message = "Are you sure you want to cancel ".concat(this.payload.client_name, "?");
       this.isdelete = true;
     },
     remove: function remove() {
-      var _this5 = this;
+      var _this4 = this;
 
-      axios["delete"]("/admin/users/".concat(this.payload.id)).then(function (_ref5) {
-        var data = _ref5.data;
+      axios["delete"]("/admin/reservations/".concat(this.payload.id)).then(function (_ref4) {
+        var data = _ref4.data;
 
-        _this5.fetchPage();
+        _this4.fetchPage();
 
-        _this5.clear();
+        _this4.clear();
       });
     },
     clear: function clear() {
@@ -1756,13 +1795,13 @@ var render = function () {
         [
           _c(
             "v-flex",
-            { staticClass: "d-block mb-12", attrs: { xs12: "", sm12: "" } },
+            { staticClass: "d-block mr-3", attrs: { sm6: "" } },
             [
-              _c("label", [_vm._v("Department")]),
+              _c("label", [_vm._v("Status")]),
               _vm._v(" "),
               _c("v-autocomplete", {
                 attrs: {
-                  items: _vm.departments,
+                  items: _vm.status,
                   "item-text": "name",
                   "item-value": "id",
                   "hide-details": "",
@@ -1772,13 +1811,133 @@ var render = function () {
                   clearable: "",
                 },
                 model: {
-                  value: _vm.filter.department_id,
+                  value: _vm.filter.status,
                   callback: function ($$v) {
-                    _vm.$set(_vm.filter, "department_id", $$v)
+                    _vm.$set(_vm.filter, "status", $$v)
                   },
-                  expression: "filter.department_id",
+                  expression: "filter.status",
                 },
               }),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-flex",
+            { staticClass: "d-block", attrs: { sm6: "" } },
+            [
+              _c("label", [_vm._v("Room type")]),
+              _vm._v(" "),
+              _c("v-autocomplete", {
+                attrs: {
+                  items: _vm.roomtypes,
+                  "item-text": "type",
+                  "item-value": "id",
+                  "hide-details": "",
+                  filled: "",
+                  dense: "",
+                  required: "",
+                  clearable: "",
+                },
+                model: {
+                  value: _vm.filter.room_type_id,
+                  callback: function ($$v) {
+                    _vm.$set(_vm.filter, "room_type_id", $$v)
+                  },
+                  expression: "filter.room_type_id",
+                },
+              }),
+            ],
+            1
+          ),
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-flex",
+        { staticClass: "mt-2", attrs: { xs12: "" } },
+        [
+          _c(
+            "v-flex",
+            { staticClass: "d-block", attrs: { sm6: "" } },
+            [
+              _c("label", [_vm._v("Start date")]),
+              _vm._v(" "),
+              _c(
+                "v-menu",
+                {
+                  attrs: {
+                    "close-on-content-click": false,
+                    "nudge-right": 0,
+                    transition: "scale-transition",
+                    "offset-y": "",
+                    "position-y": "1",
+                    "min-width": "auto",
+                  },
+                  scopedSlots: _vm._u([
+                    {
+                      key: "activator",
+                      fn: function (ref) {
+                        var on = ref.on
+                        var attrs = ref.attrs
+                        return [
+                          _c(
+                            "v-text-field",
+                            _vm._g(
+                              _vm._b(
+                                {
+                                  attrs: {
+                                    filled: "",
+                                    dense: "",
+                                    readonly: "",
+                                  },
+                                  model: {
+                                    value: _vm.filter.start_date,
+                                    callback: function ($$v) {
+                                      _vm.$set(_vm.filter, "start_date", $$v)
+                                    },
+                                    expression: "filter.start_date",
+                                  },
+                                },
+                                "v-text-field",
+                                attrs,
+                                false
+                              ),
+                              on
+                            )
+                          ),
+                        ]
+                      },
+                    },
+                  ]),
+                  model: {
+                    value: _vm.isstart,
+                    callback: function ($$v) {
+                      _vm.isstart = $$v
+                    },
+                    expression: "isstart",
+                  },
+                },
+                [
+                  _vm._v(" "),
+                  _c("v-date-picker", {
+                    on: {
+                      input: function ($event) {
+                        _vm.isstart = false
+                      },
+                    },
+                    model: {
+                      value: _vm.filter.start_date,
+                      callback: function ($$v) {
+                        _vm.$set(_vm.filter, "start_date", $$v)
+                      },
+                      expression: "filter.start_date",
+                    },
+                  }),
+                ],
+                1
+              ),
             ],
             1
           ),
@@ -1815,7 +1974,7 @@ var render = function () {
     "v-card",
     [
       _c("v-card-title", [
-        _vm._v(_vm._s(_vm.payload.id ? "Edit" : "Add") + " User"),
+        _vm._v(_vm._s(_vm.payload.id ? "Edit" : "Add") + " Reservation"),
       ]),
       _vm._v(" "),
       _c(
@@ -1838,164 +1997,229 @@ var render = function () {
                           attrs: { cols: "12", sm: "12" },
                         },
                         [
-                          _c("label", [
-                            _c("span", { staticClass: "text-red" }, [
-                              _vm._v("*"),
-                            ]),
-                            _vm._v(" First name "),
-                          ]),
-                          _vm._v(" "),
                           _c("v-text-field", {
                             attrs: {
                               rules: [
                                 function () {
-                                  return !!_vm.payload.first_name || ""
+                                  return !!_vm.payload.client_name || ""
                                 },
                               ],
-                              filled: "",
+                              outlined: "",
                               dense: "",
+                              label: "Client name",
+                              placeholder: "Client name",
                             },
                             model: {
-                              value: _vm.payload.first_name,
+                              value: _vm.payload.client_name,
                               callback: function ($$v) {
-                                _vm.$set(_vm.payload, "first_name", $$v)
+                                _vm.$set(_vm.payload, "client_name", $$v)
                               },
-                              expression: "payload.first_name",
+                              expression: "payload.client_name",
                             },
                           }),
                           _vm._v(" "),
-                          _c("label", [
-                            _c("span", { staticClass: "text-red" }, [
-                              _vm._v("*"),
-                            ]),
-                            _vm._v(" Last name"),
-                          ]),
-                          _vm._v(" "),
-                          _c("v-text-field", {
-                            attrs: {
-                              rules: [
-                                function () {
-                                  return !!_vm.payload.last_name || ""
+                          _c(
+                            "v-menu",
+                            {
+                              attrs: {
+                                "close-on-content-click": false,
+                                "nudge-right": 0,
+                                transition: "scale-transition",
+                                "offset-y": "",
+                                "position-y": "1",
+                                "min-width": "auto",
+                              },
+                              scopedSlots: _vm._u([
+                                {
+                                  key: "activator",
+                                  fn: function (ref) {
+                                    var on = ref.on
+                                    var attrs = ref.attrs
+                                    return [
+                                      _c(
+                                        "v-text-field",
+                                        _vm._g(
+                                          _vm._b(
+                                            {
+                                              attrs: {
+                                                rules: [
+                                                  function () {
+                                                    return (
+                                                      !!_vm.payload
+                                                        .start_date || ""
+                                                    )
+                                                  },
+                                                ],
+                                                label: "Start date",
+                                                placeholder: "Start date",
+                                                outlined: "",
+                                                dense: "",
+                                                readonly: "",
+                                              },
+                                              model: {
+                                                value: _vm.payload.start_date,
+                                                callback: function ($$v) {
+                                                  _vm.$set(
+                                                    _vm.payload,
+                                                    "start_date",
+                                                    $$v
+                                                  )
+                                                },
+                                                expression:
+                                                  "payload.start_date",
+                                              },
+                                            },
+                                            "v-text-field",
+                                            attrs,
+                                            false
+                                          ),
+                                          on
+                                        )
+                                      ),
+                                    ]
+                                  },
                                 },
-                              ],
-                              filled: "",
-                              dense: "",
-                            },
-                            model: {
-                              value: _vm.payload.last_name,
-                              callback: function ($$v) {
-                                _vm.$set(_vm.payload, "last_name", $$v)
-                              },
-                              expression: "payload.last_name",
-                            },
-                          }),
-                          _vm._v(" "),
-                          _c("label", [
-                            _c("span", { staticClass: "text-red" }, [
-                              _vm._v("*"),
-                            ]),
-                            _vm._v(" Email"),
-                          ]),
-                          _vm._v(" "),
-                          _c("v-text-field", {
-                            attrs: {
-                              rules: [
-                                function () {
-                                  return !!_vm.payload.email || ""
+                              ]),
+                              model: {
+                                value: _vm.isstart,
+                                callback: function ($$v) {
+                                  _vm.isstart = $$v
                                 },
-                              ],
-                              filled: "",
-                              dense: "",
-                            },
-                            model: {
-                              value: _vm.payload.email,
-                              callback: function ($$v) {
-                                _vm.$set(_vm.payload, "email", $$v)
+                                expression: "isstart",
                               },
-                              expression: "payload.email",
                             },
-                          }),
+                            [
+                              _vm._v(" "),
+                              _c("v-date-picker", {
+                                on: {
+                                  input: function ($event) {
+                                    _vm.isstart = false
+                                  },
+                                },
+                                model: {
+                                  value: _vm.payload.start_date,
+                                  callback: function ($$v) {
+                                    _vm.$set(_vm.payload, "start_date", $$v)
+                                  },
+                                  expression: "payload.start_date",
+                                },
+                              }),
+                            ],
+                            1
+                          ),
                           _vm._v(" "),
-                          _c("label", [
-                            _c("span", { staticClass: "text-red" }, [
-                              _vm._v("*"),
-                            ]),
-                            _vm._v(" Password"),
-                          ]),
-                          _vm._v(" "),
-                          _c("v-text-field", {
-                            attrs: {
-                              rules: _vm.payload.id
-                                ? ""
-                                : [
-                                    function () {
-                                      return !!_vm.payload.password || ""
-                                    },
-                                  ],
-                              filled: "",
-                              dense: "",
-                              type: "password",
-                            },
-                            model: {
-                              value: _vm.payload.password,
-                              callback: function ($$v) {
-                                _vm.$set(_vm.payload, "password", $$v)
+                          _c(
+                            "v-menu",
+                            {
+                              attrs: {
+                                "close-on-content-click": false,
+                                "nudge-right": 0,
+                                transition: "scale-transition",
+                                "offset-y": "",
+                                "position-y": "1",
+                                "min-width": "auto",
                               },
-                              expression: "payload.password",
+                              scopedSlots: _vm._u([
+                                {
+                                  key: "activator",
+                                  fn: function (ref) {
+                                    var on = ref.on
+                                    var attrs = ref.attrs
+                                    return [
+                                      _c(
+                                        "v-text-field",
+                                        _vm._g(
+                                          _vm._b(
+                                            {
+                                              attrs: {
+                                                rules: [
+                                                  function () {
+                                                    return (
+                                                      !!_vm.payload.end_date ||
+                                                      ""
+                                                    )
+                                                  },
+                                                ],
+                                                label: "End date",
+                                                placeholder: "End date",
+                                                outlined: "",
+                                                dense: "",
+                                                readonly: "",
+                                              },
+                                              model: {
+                                                value: _vm.payload.end_date,
+                                                callback: function ($$v) {
+                                                  _vm.$set(
+                                                    _vm.payload,
+                                                    "end_date",
+                                                    $$v
+                                                  )
+                                                },
+                                                expression: "payload.end_date",
+                                              },
+                                            },
+                                            "v-text-field",
+                                            attrs,
+                                            false
+                                          ),
+                                          on
+                                        )
+                                      ),
+                                    ]
+                                  },
+                                },
+                              ]),
+                              model: {
+                                value: _vm.isend,
+                                callback: function ($$v) {
+                                  _vm.isend = $$v
+                                },
+                                expression: "isend",
+                              },
                             },
-                          }),
-                          _vm._v(" "),
-                          _c("label", [
-                            _c("span", { staticClass: "text-red" }, [
-                              _vm._v("*"),
-                            ]),
-                            _vm._v(" Shift"),
-                          ]),
+                            [
+                              _vm._v(" "),
+                              _c("v-date-picker", {
+                                attrs: { min: _vm.payload.start_date },
+                                on: {
+                                  input: function ($event) {
+                                    _vm.isend = false
+                                  },
+                                },
+                                model: {
+                                  value: _vm.payload.end_date,
+                                  callback: function ($$v) {
+                                    _vm.$set(_vm.payload, "end_date", $$v)
+                                  },
+                                  expression: "payload.end_date",
+                                },
+                              }),
+                            ],
+                            1
+                          ),
                           _vm._v(" "),
                           _c("v-autocomplete", {
                             attrs: {
+                              "item-value": "id",
                               rules: [
                                 function () {
-                                  return !!_vm.payload.shift || ""
+                                  return !!_vm.payload.room_type_id || ""
                                 },
                               ],
-                              "item-value": "id",
-                              items: _vm.shifts,
-                              "item-text": "text",
-                              filled: "",
-                              dense: "",
-                            },
-                            model: {
-                              value: _vm.payload.shift,
-                              callback: function ($$v) {
-                                _vm.$set(_vm.payload, "shift", $$v)
-                              },
-                              expression: "payload.shift",
-                            },
-                          }),
-                          _vm._v(" "),
-                          _c("label", [
-                            _c("span", { staticClass: "text-red" }, [
-                              _vm._v("*"),
-                            ]),
-                            _vm._v(" Status"),
-                          ]),
-                          _vm._v(" "),
-                          _c("v-autocomplete", {
-                            attrs: {
-                              "item-value": "id",
-                              items: _vm.status,
-                              "item-text": "text",
+                              items: _vm.roomtypes,
+                              "item-text": "type",
                               "hide-details": "auto",
-                              filled: "",
+                              outlined: "",
                               dense: "",
+                              label: "Room type",
+                              placeholder: "Room type",
                             },
                             model: {
-                              value: _vm.payload.status,
+                              value: _vm.payload.room_type_id,
                               callback: function ($$v) {
-                                _vm.$set(_vm.payload, "status", $$v)
+                                _vm.$set(_vm.payload, "room_type_id", $$v)
                               },
-                              expression: "payload.status",
+                              expression: "payload.room_type_id",
                             },
                           }),
                         ],
@@ -2089,12 +2313,13 @@ var render = function () {
         "v-card-text",
         [
           _c("table-header", {
-            attrs: { data: _vm.data, hide: ["addNew"] },
+            attrs: { data: _vm.data },
             on: {
               refresh: _vm.fetchPage,
               search: _vm.fetchPage,
               resetFilters: _vm.resetFilter,
               filterRecord: _vm.fetchPage,
+              addNew: _vm.addNew,
             },
             scopedSlots: _vm._u([
               {
@@ -2135,13 +2360,26 @@ var render = function () {
             },
             scopedSlots: _vm._u([
               {
-                key: "item.shift",
+                key: "item.start_date",
                 fn: function (ref) {
                   var item = ref.item
                   return [
                     _vm._v(
                       "\n                " +
-                        _vm._s(item.shift == 1 ? "Morning" : "Night") +
+                        _vm._s(_vm._formatDate(item.start_date)) +
+                        "\n            "
+                    ),
+                  ]
+                },
+              },
+              {
+                key: "item.end_date",
+                fn: function (ref) {
+                  var item = ref.item
+                  return [
+                    _vm._v(
+                      "\n                " +
+                        _vm._s(_vm._formatDate(item.end_date)) +
                         "\n            "
                     ),
                   ]
@@ -2154,20 +2392,20 @@ var render = function () {
                   return [
                     _vm._v(
                       "\n                " +
-                        _vm._s(item.status == 1 ? "Active" : "Deactivated") +
+                        _vm._s(item.status == 1 ? "Waiting" : "Cancelled") +
                         "\n            "
                     ),
                   ]
                 },
               },
               {
-                key: "item.updated_at",
+                key: "item.room_type",
                 fn: function (ref) {
                   var item = ref.item
                   return [
                     _vm._v(
                       "\n                " +
-                        _vm._s(_vm._formatDate(item.updated_at)) +
+                        _vm._s(item.room_type.type) +
                         "\n            "
                     ),
                   ]
@@ -2182,7 +2420,11 @@ var render = function () {
                       "v-row",
                       [
                         _c("table-action", {
-                          attrs: { item: item },
+                          attrs: {
+                            item: item,
+                            disable:
+                              item.status == 2 ? ["edit", "delete"] : [""],
+                          },
                           on: {
                             editItem: _vm.showEdit,
                             deleteItem: _vm.showDelete,

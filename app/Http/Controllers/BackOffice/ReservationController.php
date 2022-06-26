@@ -4,6 +4,7 @@ namespace App\Http\Controllers\BackOffice;
 
 use App\Helpers\SearchFilterHelpers\Reservations;
 use App\Http\Controllers\Controller;
+use App\Models\Reservation;
 use Illuminate\Http\Request;
 
 class ReservationController extends Controller
@@ -36,7 +37,7 @@ class ReservationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return Reservation::create($request->all());
     }
 
     /**
@@ -70,7 +71,8 @@ class ReservationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $reservation = Reservation::where('id', $id)->first();
+        $reservation->update($request->all());
     }
 
     /**
@@ -81,6 +83,7 @@ class ReservationController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $reservation = Reservation::where('id', $id)->first();
+        $reservation->update(['status' => 2]);
     }
 }
