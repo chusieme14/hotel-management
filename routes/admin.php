@@ -19,5 +19,7 @@ Route::group(['middleware'=>['auth:web']],function(){
     Route::resource('reservations', ReservationController::class);
     Route::resource('room-types', RoomTypeController::class);
     Route::resource('rooms', RoomController::class);
+
+    Route::put('check-ins/{id}/extend', [CheckInController::class, 'extendHours']);
     Route::resource('check-ins', CheckInController::class);
 });

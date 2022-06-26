@@ -38,14 +38,14 @@ class CheckInController extends Controller
      */
     public function store(Request $request)
     {
-        $total = $request->total_room_rate + $request->total_ads;
+        $total = ($request->room_total_days * $request->room_rate) + ($request->room_guest_extra_person * $request->room_extra_person);
         $checkin = CheckIn::create([
             'room_id' => $request->room_id,
             'user_id' =>$request->user_id,
             'client_name' => $request->room_guest_name,
             'contact_number' => $request->room_guest_contact,
             'extra_persons' => $request->room_guest_extra_person,
-            'regular_bill' => $request->total_room_rate,
+            'regular_bill' => ($request->room_total_days * $request->room_rate),
             'total_paid' => $total,
             'start_date' => Carbon::parse($request->room_guest_start),
             'end_date' => Carbon::parse($request->room_guest_end),
@@ -101,5 +101,23 @@ class CheckInController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function extendHours(Request $request, $id)
+    {
+        $checkin = CheckIn::find($id);
+
+        $new_end = Carbon::parse($checkin->end_date)->addHours($request->totalHours);
+        $extra_hour_pay =  $request->roomType['extra_person_rate'] * $request->totalHours;
+        $new_extra_hour = $checkin->extra_hours + $request->totalHours;
+        $total_paid = $checkin->total_paid + $extra_hour_pay;
+
+        $checkin->update([
+            "end_date" => $new_end,
+            "extra_hours" => $new_extra_hour,
+            "total_paid" => $total_paid
+        ]);
+
+        return CheckIn::find($id);
     }
 }
