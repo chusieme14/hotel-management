@@ -9,6 +9,12 @@ export default [
         name:'Reservations',
         icon:'mdi-file-account',
         route:'reservations',
+        admin:false
+    },
+    {
+        name:'Check ins',
+        icon:'mdi-file-account',
+        route:'Check-ins',
         admin:true
     },
     {

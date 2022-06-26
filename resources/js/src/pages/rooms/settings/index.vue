@@ -1,76 +1,15 @@
 <template>
     <v-card elevation="1" max-height="90vh">
-        <v-dialog v-model="showForm" width="600" persistent>
-            <v-card>
-                <v-card-title>
-                    Room Type
-                </v-card-title>
-                <v-card-text>
-                    <v-form ref="form" lazy-validation>
-                        <v-container>
-                            <v-row>
-                                <v-col class="col-text-field" cols="12" sm="12">
-                                    <label><span class="text-red">*</span> Room Type Name </label>
-                                    <v-text-field
-                                        :rules="[() => !!payload.type ||  '']"
-                                        v-model="payload.type"
-                                        filled
-                                        dense
-                                    ></v-text-field>
-                                    <label> Room Type Description </label>
-                                    <v-textarea
-                                        v-model="payload.description"
-                                        filled
-                                        dense
-                                        no-resize
-                                        height="100"
-                                    ></v-textarea>
-                                    <v-col cols="12"  class="d-flex child-flex" style="padding: 0px !important">
-                                        <div class="mr-2">
-                                            <label><span class="text-red">*</span> Price </label>
-                                            <v-text-field
-                                                :rules="[() => payload.extra_person_rate > 0 || '']"
-                                                v-model="payload.price"
-                                                type="number"
-                                                filled
-                                                dense
-                                                hide-details
-                                            ></v-text-field>
-                                        </div>
-                                        <div>
-                                            <label><span class="text-red">*</span> Extra Person Rate </label>
-                                            <v-text-field
-                                                :rules="[() => payload.extra_person_rate > 0 || '']"
-                                                v-model="payload.extra_person_rate"
-                                                type="number"
-                                                filled
-                                                dense
-                                                hide-details
-                                            ></v-text-field>
-                                        </div>
-                                    </v-col>
-                                </v-col>
-                            </v-row>
-                        </v-container>
-                    </v-form>
-                </v-card-text>
-                <v-card-actions>
-                    <v-col class="col-text-field" align="end">
-                        <v-btn color="error" @click="cancel">Cancel</v-btn>
-                        <v-btn color="success" @click="save" class="ml-2">Save</v-btn>
-                    </v-col>
-                </v-card-actions>
-            </v-card>
-        </v-dialog>
         <v-card-text>
             <table-header
                 :data="data"
+                @addNew="addRoomType"
                 :hide="['filter','search']"
             >
             </table-header>
             <v-data-table
                 :headers="headers"
-                :items="admins"
+                :items="roomtypes"
                 max-height="100%"
                 :single-select="false"
                 show-select
@@ -98,24 +37,28 @@
                         <table-action :item="item" 
                             @editItem="showEdit" 
                             @deleteItem="showDelete"
-                            :disable="admin.department_id!=0?['edit','delete']:['']"
+                            :disable="['delete']"
                         ></table-action>
                     </v-row>
                 </template>
             
             </v-data-table>
         </v-card-text>
+        <type-form @cancel="cancel" :payload="payload" :isform="showForm"/>
     </v-card>
 </template>
 <script>
+import TypeForm from './form/index.vue'
 export default {
+    components:{
+        TypeForm
+    },
     data(){
         return {
-            admin:{},
             payload:{},
             showForm:false,
             isdelete:false,
-            admins:[],
+            roomtypes:[],
             payload:{},
             details:{},
             data: {
@@ -142,7 +85,7 @@ export default {
                     text: 'Name',
                     align: 'start',
                     sortable: true,
-                    value: 'name',
+                    value: 'type',
                 },
                 {
                     text: 'Price',
@@ -154,7 +97,13 @@ export default {
                     text: 'Extra Person Rate',
                     align: 'start',
                     sortable: true,
-                    value: 'extra_person',
+                    value: 'extra_person_rate',
+                },
+                {
+                    text: 'Extra Hour Rate',
+                    align: 'start',
+                    sortable: true,
+                    value: 'extra_hour_rate',
                 },
                 {
                     text: 'Action',
@@ -169,6 +118,7 @@ export default {
       this.getLoginUser()
     },
     methods:{
+
         resetFilter(){
             this.data.filter={};
             this.fetchPage()
@@ -181,7 +131,8 @@ export default {
         cancel(){
             this.clear()
         },
-        addNew(){
+        addRoomType(){
+            console.log("sdksjdjskdjksdjskjd")
             this.showForm = true
         },
         fetchPage(){
@@ -190,8 +141,8 @@ export default {
                 params = params + this._createFilterParams(this.data.filter)
                 if(this.data.keyword)
                     params = params + '&keyword=' + this.data.keyword
-            axios.get(`/admin/admins?${params}`).then(({data})=>{
-                this.admins = data.data
+            axios.get(`/admin/room-types?${params}`).then(({data})=>{
+                this.roomtypes = data.data
                 this.total = data.total
                 this.data.isFetching = false
             })

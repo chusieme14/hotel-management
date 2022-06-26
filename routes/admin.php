@@ -15,7 +15,7 @@ Route::group(['middleware'=>['auth:web']],function(){
     Route::get('logout',[AuthController::class,'logout']);
     
     Route::get('check-email', [UserController::class, 'checkEmail']);
-    Route::get('user-logs/{id}', [UserController::class, 'getLogs']);
+    Route::get('user-logs', [UserController::class, 'getLogs']);
     Route::resource('users', UserController::class);
     Route::resource('reservations', ReservationController::class);
     Route::resource('room-types', RoomTypeController::class);
