@@ -8,23 +8,38 @@
             <v-card-title>{{payload.id?'Update':'Add'}} Room Type</v-card-title>
             <v-card-text>
                 <v-form lazy-validation>
-                    <v-autocomplete
-                        v-model="payload.room_type_id"
-                        :items="roomTypes"
-                        item-value="id"
-                        item-text="type"
-                        outlined
-                        dense
-                        label="Room type"
-                        placeholder="Room type"
-                    >
-                    </v-autocomplete>
                     <v-text-field
-                        v-model="payload.number"
+                        v-model="payload.type"
                         outlined
                         dense
-                        label="Room number"
-                        placeholder="Room number"
+                        label="Type"
+                        placeholder="Type"
+                    >
+                    </v-text-field>
+                    <v-text-field
+                        v-model="payload.price"
+                        outlined
+                        dense
+                        label="Price"
+                        placeholder="Price"
+                        type="number"
+                    >
+                    </v-text-field>
+                    <v-text-field
+                        v-model="payload.extra_person_rate"
+                        outlined
+                        dense
+                        label="Extra person rate"
+                        placeholder="Extraperson rate"
+                        type="number"
+                    >
+                    </v-text-field>
+                    <v-text-field
+                        v-model="payload.extra_hour_rate"
+                        outlined
+                        dense
+                        label="Extra hour rate"
+                        placeholder="Extra hour rate"
                         type="number"
                         hide-details="auto"
                     >

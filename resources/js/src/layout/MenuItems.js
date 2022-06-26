@@ -18,16 +18,16 @@ export default [
         admin:true
     },
     {
-        name:'Users',
-        icon:'mdi-account-group',
-        route:'users',
-        admin:true
-    },
-    {
         name:'Room Types',
         icon:'mdi-bed-king',
         route: 'room-types',
         admin:true,
+    },
+    {
+        name:'Users',
+        icon:'mdi-account-group',
+        route:'users',
+        admin:true
     },
     
 ]

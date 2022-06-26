@@ -55,7 +55,7 @@ router.beforeEach((to, from, next) => {
                 })
             } 
             else {
-                if(!data.isadmin && (to.name!='rooms')){
+                if(!data.isadmin && (to.name!='rooms' || to.name!='reservations')){
                     next({
                         name: 'not-found',
                         query: { redirect: to.fullPath }

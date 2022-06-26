@@ -37,21 +37,24 @@
                         <table-action :item="item" 
                             @editItem="showEdit" 
                             @deleteItem="showDelete"
-                            :disable="['delete']"
+                            :disable="item.rooms.length?['delete']:['']"
                         ></table-action>
                     </v-row>
                 </template>
             
             </v-data-table>
         </v-card-text>
-        <type-form @cancel="cancel" :payload="payload" :isform="showForm"/>
+        <type-form @save="save" @cancel="cancel" :payload="payload" :isform="showForm"/>
+        <confirm-dialog :show="isdelete" :details="details" @confirm="remove" @cancel="cancel"/>
     </v-card>
 </template>
 <script>
+import ConfirmDialog from '../../../components/confirm-dialog.vue'
 import TypeForm from './form/index.vue'
 export default {
     components:{
-        TypeForm
+        TypeForm,
+        ConfirmDialog
     },
     data(){
         return {
@@ -151,13 +154,13 @@ export default {
             if (this.payload.id) {
                 delete this.payload.created_at
                 delete this.payload.updated_at
-                axios.put(`/admin/admins/${this.payload.id}`, this.payload).then(({data})=>{
+                axios.put(`/admin/room-types/${this.payload.id}`, this.payload).then(({data})=>{
                     this.fetchPage()
                     this.clear()
                 })
                 return
             }
-            axios.post(`/admin/admins`, this.payload).then(({data})=>{
+            axios.post(`/admin/room-types`, this.payload).then(({data})=>{
                 this.fetchPage()
                 this.clear()
             })
@@ -169,11 +172,11 @@ export default {
         showDelete(val){
             Object.assign(this.payload, val)
             this.details.title = 'Delete'
-            this.details.message = `Are you sure you want to remove ${this.payload.fullname}?`
+            this.details.message = `Are you sure you want to remove ${this.payload.type}?`
             this.isdelete = true
         },
         remove(){
-            axios.delete(`/admin/admins/${this.payload.id}`).then(({data})=>{
+            axios.delete(`/admin/room-types/${this.payload.id}`).then(({data})=>{
                 this.fetchPage()
                 this.clear()
             })
