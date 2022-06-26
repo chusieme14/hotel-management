@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\BackOffice;
 
+use App\Helpers\SearchFilterHelpers\UserLogs;
 use Carbon\Carbon;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -58,8 +59,8 @@ class UserController extends Controller
         }
     }
 
-    public function getLogs($id)
+    public function getLogs()
     {
-        return UserLog::where('user_id', $id)->get();
+        return (new UserLogs)->searchable();
     }
 }

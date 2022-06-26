@@ -1,5 +1,5 @@
 <template>
-    <v-card elevation="1" max-height="90vh">
+    <v-card elevation="1" height="90vh">
         <v-card-text>
             <table-header
                 :data="data"
@@ -29,6 +29,7 @@
                 :options.sync="options"
                 :items-per-page="options.itemsPerPage"
                 @update:options="fetchPage"
+                @click:row="viewLogs"
                 class="cursor-pointer table-fix-height"
                 fixed-header
             >
@@ -77,21 +78,31 @@
             @cancel="cancel"
             @confirm="remove"
         />
+        <view-logs 
+            class="view-logs" 
+            :view="isviewlogs" 
+            :selectedUser="selectedUser"
+            @close="cancel"
+        />
     </v-card>
 </template>
 <script>
 import AdminForm from './form.vue'
 import AdminFilter from './filter.vue'
+import ViewLogs from './view/view-side.vue'
 export default {
     components:{
         AdminForm,
-        AdminFilter
+        AdminFilter,
+        ViewLogs
     },
     data(){
         return {
             admin:{},
             showForm:false,
             isdelete:false,
+            isviewlogs:false,
+            selectedUser:{},
             admins:[],
             payload:{},
             details:{},
@@ -158,6 +169,11 @@ export default {
       this.getLoginUser()
     },
     methods:{
+        viewLogs(item){
+            console.log(item, "ine")
+            this.selectedUser = item
+            this.isviewlogs = true
+        },
         resetFilter(){
             this.data.filter={};
             this.fetchPage()
@@ -225,11 +241,18 @@ export default {
             this.payload.shift = null
             this.payload.password = ''
             this.details = {}
+            this.selectedUser = {}
             this.showForm = false
             this.isdelete = false
+            this.isviewlogs = false
         }
       
 
     }
 }
 </script>
+<style lang="scss" scoped>
+    .view-logs{
+        z-index: 2;
+    }
+</style>

@@ -9,12 +9,12 @@ export default [
         name:'Reservations',
         icon:'mdi-file-account',
         route:'reservations',
-        admin:true
+        admin:false
     },
     {
-        name:'Users',
-        icon:'mdi-account-group',
-        route:'users',
+        name:'Check ins',
+        icon:'mdi-file-account',
+        route:'Check-ins',
         admin:true
     },
     {
@@ -22,6 +22,12 @@ export default [
         icon:'mdi-bed-king',
         route: 'room-types',
         admin:true,
+    },
+    {
+        name:'Users',
+        icon:'mdi-account-group',
+        route:'users',
+        admin:true
     },
     
 ]

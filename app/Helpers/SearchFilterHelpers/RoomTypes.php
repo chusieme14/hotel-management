@@ -13,6 +13,7 @@ class RoomTypes {
 
     public function searchable()
     {
+        $this->model->with('rooms');
         $this->searchColumns();
         $this->sortBy();
         $per_page = Request()->per_page;
