@@ -14,10 +14,10 @@
                     class="d-flex child-flex"
                     cols="3"
                 >
-                    <Grid :room="room" @view="viewReservation" @checkin="openCheckInDialog"/>
+                    <Grid :room="room" @view="viewReservation" @checkin="openCheckInDialog" @toggle="toggleStatus"/>
                 </v-col>
             </v-row>
-            <ViewCheckin :selectedRoom="selectedRoom" :dialog="isview" @close="clear" @extend="extendHours"/>
+            <ViewCheckin :selectedRoom="selectedRoom" :dialog="isview" @close="clear" @extend="extendHours" @toggle="toggleStatus"/>
         </v-card-text>
         <add-form :payload="payload" :isform="isform" @cancel="isform=false" @save="addRoom"/>
         <check-in :payload="checkinPayload" :selectedRoom="selectedRoom" @checkin="checkIn" :dialog="checkInDialog" @close="closeCheckinDialog"></check-in>
@@ -64,7 +64,16 @@ export default {
             }
             axios.put(`/admin/check-ins/${this.selectedRoom.check_in.id}/extend`, payload).then(({data})=>{
                 this.selectedRoom.check_in = data
-                console.log(this.selectedRoom)
+            })
+        },
+        toggleStatus(status, room_id) {
+            let payload = {
+                status: status
+            }
+
+            axios.put(`/admin/rooms/${room_id}/toggle-status`, payload).then(({data})=>{
+                this.clear()
+                this.getRooms()
             })
         },
         viewReservation(room){

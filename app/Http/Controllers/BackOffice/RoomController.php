@@ -64,13 +64,13 @@ class RoomController extends Controller
         //
     }
 
-    public function toogleStatus(Request $request)
+    public function toogleStatus(Request $request, $id)
     {
-        # code...
-    }
-
-    public function checkIn(Request $request)
-    {
-        # code...
+        $room = Room::find($id);
+        $room->update([
+            'status' => $request->status,
+            'check_in_id' => null,
+        ]);
+        return  Room::find($id);
     }
 }

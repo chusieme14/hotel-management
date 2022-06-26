@@ -160,7 +160,7 @@
                                 <v-col class="col-text-field" align="end">
                                     <v-btn color="error" @click="$emit('close')">Cancel</v-btn>
                                     <v-btn color="success" @click="extend_dialog=true" class="ml-2">Extend Time</v-btn>
-                                    <v-btn color="success" class="ml-2">Check Out</v-btn>
+                                    <v-btn color="success" @click="checkout" class="ml-2">Check Out</v-btn>
                                 </v-col>
                             </v-col>
                         </v-row>
@@ -225,6 +225,12 @@
                 </v-card-text>    
             </v-card>
         </v-dialog>
+        <confirm-dialog
+            :details="confirm_details"
+            :show="confirm_dialog"
+            @cancel="cancel"
+            @confirm="confirm"
+        />
     </div>
 </template>
 
@@ -236,6 +242,9 @@ export default {
     },
     data() {
         return {
+            confirm_details: {},
+            confirm_type: '',
+            confirm_dialog: false,
             extend_dialog: false,
             total_extend: 0
         }
@@ -248,8 +257,32 @@ export default {
         extendHours() {
             if(!this.$refs.form.validate()) return;
 
-            this.$emit('extend', this.total_extend)
-            this.closeExtendDialog()
+            this.confirm_details.title = 'Extend'
+            this.confirm_details.message = `Continue to extend hours?`
+            this.confirm_type = 'extend'
+            this.confirm_dialog = true
+        },
+        checkout() {
+            this.confirm_details.title = 'Checkout'
+            this.confirm_details.message = `Continue to checkout?`
+            this.confirm_type = 'checkout'
+            this.confirm_dialog = true
+        },
+        confirm() {
+            if(this.confirm_type == 'extend'){
+                this.$emit('extend', this.total_extend)
+                this.closeExtendDialog()
+            } else {
+                this.$emit('toggle', 2, this.selectedRoom.id)
+            }
+            
+            this.cancel()
+        },
+        cancel() {
+            this.confirm_details.title = ''
+            this.confirm_details.message = ``
+            this.confirm_type = ''       
+            this.confirm_dialog = false    
         }
     },
     computed: {

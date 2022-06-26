@@ -19,6 +19,8 @@ Route::group(['middleware'=>['auth:web']],function(){
     Route::resource('users', UserController::class);
     Route::resource('reservations', ReservationController::class);
     Route::resource('room-types', RoomTypeController::class);
+
+    Route::put('rooms/{id}/toggle-status', [RoomController::class, 'toogleStatus']);
     Route::resource('rooms', RoomController::class);
 
     Route::put('check-ins/{id}/extend', [CheckInController::class, 'extendHours']);

@@ -21,11 +21,18 @@
                 <v-card-actions align="center">
                     <v-col>
                         <v-btn block depressed v-if="room.status == 0" @click="$emit('checkin', room)">Check in</v-btn>
+                        <v-btn block depressed v-else-if="room.status == 2" @click="finishCleaning"> Finish Cleaning </v-btn>
                         <v-btn block depressed v-else @click="$emit('view', room)">View</v-btn>
                     </v-col>
                 </v-card-actions>
             </v-card>
         </v-container>
+        <confirm-dialog
+            :details="confirm_details"
+            :show="confirm_dialog"
+            @cancel="cancel"
+            @confirm="confirm"
+        />
     </div>
 </template>
 <script>
@@ -44,7 +51,10 @@
                     text: "available",
                     icon: 'bed',
                     color: '#00C853'
-                }
+                },
+                confirm_details: {},
+                confirm_type: '',
+                confirm_dialog: false,
             }
         },
         mounted() {
@@ -53,9 +63,8 @@
         methods: {
             timer() {
                 setInterval(() => {
-
+                    let time_rem = ''
                     if(this.room.status == 1) {
-                        let time_rem = (this.$moment(this.room.check_in.end_date).diff(this.$moment(), 'seconds'))
                         if(this.$moment().unix() > this.$moment(this.room.check_in.end_date).unix()){
                             this.time.status = "Time"
                             this.time.text = "since"
@@ -70,11 +79,24 @@
                             this.time.color = "#FF6D00"
                             time_rem = (this.$moment(this.room.check_in.end_date).diff(this.$moment(), 'seconds'))
                         }
-                        this.time.days = this.addLeadZero(Math.floor(time_rem / 86400))
-                        this.time.hour = this.addLeadZero(Math.floor((time_rem / 3600) % 24))
-                        this.time.minutes =  this.addLeadZero(Math.floor((time_rem / 60) % 60))
-                        this.time.seconds =  this.addLeadZero(Math.floor((time_rem) % 60))
                     }
+                    else if(this.room.status == 2) {
+                        this.time.status = "Cleaning"
+                        this.time.text = "Since"
+                        this.time.icon = "mdi-broom"
+                        this.time.color = "#006064"
+                        time_rem = (this.$moment().diff(this.$moment(this.room.updated_at), 'seconds'))
+                    }
+                    else{
+                        this.time.status = 'available',
+                        this.time.text = "available",
+                        this.time.icon = 'bed',
+                        this.time.color = '#00C853'
+                    }
+                    this.time.days = this.addLeadZero(Math.floor(time_rem / 86400))
+                    this.time.hour = this.addLeadZero(Math.floor((time_rem / 3600) % 24))
+                    this.time.minutes =  this.addLeadZero(Math.floor((time_rem / 60) % 60))
+                    this.time.seconds =  this.addLeadZero(Math.floor((time_rem) % 60))
                 }, 1000)
             },
             addLeadZero(num) {
@@ -84,6 +106,24 @@
                 } else {
                     return "0" + string
                 }
+            },
+            finishCleaning() {
+                this.confirm_details.title = 'Finish Cleaning'
+                this.confirm_details.message = 'The room will be available after this. Continue?'
+                this.confirm_type = 'cleaning'
+                this.confirm_dialog = true
+            },
+            cancel() {
+                this.confirm_details.title = ''
+                this.confirm_details.message = ``
+                this.confirm_type = ''
+                this.confirm_dialog = false
+            },
+            confirm() {
+                if(this.confirm_type == 'cleaning')
+                    this.$emit('toggle', 0, this.room.id)
+
+                this.cancel()
             }
         }
     }
