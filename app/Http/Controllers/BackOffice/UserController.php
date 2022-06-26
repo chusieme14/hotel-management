@@ -2,16 +2,19 @@
 
 namespace App\Http\Controllers\BackOffice;
 
+use Carbon\Carbon;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use App\Helpers\SearchFilterHelpers\Users;
+use App\Models\UserLog;
 
 class UserController extends Controller
 {
     public function index()
     {
+        // return Carbon::now()->timezone('Asia/Manila');
         return (new Users)->searchable();
     }
 
@@ -53,5 +56,10 @@ class UserController extends Controller
         }else{
             return User::where('email', Request()->email)->first();
         }
+    }
+
+    public function getLogs($id)
+    {
+        return UserLog::where('user_id', $id)->get();
     }
 }

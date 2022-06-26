@@ -52,4 +52,8 @@ class User extends Authenticatable
     public function getFullNameAttribute(){
         return ucfirst($this->last_name). ' '. ucfirst($this->first_name);
     }
+
+    public function logs(){
+        return $this->hasMany(UserLog::class);
+    }
 }

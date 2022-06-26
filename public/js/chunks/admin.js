@@ -503,6 +503,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       if (this.data.keyword) params = params + '&keyword=' + this.data.keyword;
       axios.get("/admin/users?".concat(params)).then(function (_ref2) {
         var data = _ref2.data;
+        console.log(_this2._formatDate(data));
         _this2.admins = data.data;
         _this2.total = data.total;
         _this2.data.isFetching = false;
@@ -1488,7 +1489,7 @@ __webpack_require__.r(__webpack_exports__);
       checkins: [],
       drawer: false,
       data: {
-        title: "Reservations",
+        title: "Upcoming resevation",
         isFetching: false,
         keyword: "",
         filter: {}
@@ -3837,7 +3838,6 @@ var render = function () {
               _c(
                 "v-card-title",
                 [
-                  _vm._v("Upcoming resevation\n                "),
                   _c("v-spacer"),
                   _vm._v(" "),
                   _c(
