@@ -180,6 +180,7 @@ export default {
                 if(this.data.keyword)
                     params = params + '&keyword=' + this.data.keyword
             axios.get(`/admin/users?${params}`).then(({data})=>{
+                console.log(this._formatDate(data))
                 this.admins = data.data
                 this.total = data.total
                 this.data.isFetching = false

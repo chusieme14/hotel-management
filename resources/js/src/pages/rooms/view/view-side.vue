@@ -6,7 +6,7 @@
       width="900"
     >
         <v-card v-if="selectedRoom.id">
-            <v-card-title>Upcoming resevation
+            <v-card-title>
                     <v-spacer></v-spacer>
                     <v-btn icon @click="$emit('close')"><v-icon>close</v-icon></v-btn>
                 </v-card-title>
@@ -78,7 +78,7 @@ export default {
             checkins:[],
             drawer:false,
             data: {
-                title: "Reservations",
+                title: "Upcoming resevation",
                 isFetching: false,
                 keyword: "",
                 filter:{}

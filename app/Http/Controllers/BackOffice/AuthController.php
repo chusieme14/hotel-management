@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\BackOffice;
 
+use Carbon\Carbon;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Cookie;
@@ -27,7 +28,11 @@ class AuthController extends Controller
         }
         Auth::guard('web')->login($user);
 
-
+        if(!$user->isadmin){
+            $user->logs()->create([
+                'login' => Carbon::now()->timezone('Asia/Manila'),
+            ]);
+        }
         return response()->json(['user'=>$user, 'message'=>'success'], 200);
     }
 
@@ -36,6 +41,14 @@ class AuthController extends Controller
     }
 
     public function logout(Request $request){
+        $user = User::where('id',Auth::guard('web')->user()->id)->first();
+
+        if(!$user->isadmin){
+            $user->logs()->update([
+                'logout' => Carbon::now()->timezone('Asia/Manila'),
+            ]);
+        }
+
         auth()->guard('web')->logout();
         $request->session()->invalidate();
 
