@@ -14,7 +14,7 @@ export default [
     {
         name:'Check ins',
         icon:'mdi-file-account',
-        route:'Check-ins',
+        route:'check-ins',
         admin:true
     },
     {

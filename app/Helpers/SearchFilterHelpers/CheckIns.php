@@ -16,7 +16,7 @@ class CheckIns {
     {
         // $this->sortBy();
         // $this->model->with('room_type');
-        
+        $this->model->with('room');
         $this->byRoom();
         $this->searchColumns();
         $per_page = Request()->per_page;

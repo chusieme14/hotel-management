@@ -50,7 +50,7 @@ class CheckInController extends Controller
             'start_date' => Carbon::parse($request->room_guest_start),
             'end_date' => Carbon::parse($request->room_guest_end),
         ]);
-        if(Carbon::parse($request->room_guest_start)->format('Y-m-d')==Carbon::now()->format('Y-m-d')){
+        if(Carbon::parse($request->room_guest_start)->format('Y-m-d')==Carbon::now()->timezone('Asia/Manila')->format('Y-m-d')){
             $checkin->room()->update([
                 'status' => 1,
                 'check_in_id' => $checkin->id
