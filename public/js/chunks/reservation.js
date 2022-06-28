@@ -998,6 +998,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _form_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./form.vue */ "./resources/js/src/pages/reservations/form.vue");
 /* harmony import */ var _filter_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./filter.vue */ "./resources/js/src/pages/reservations/filter.vue");
 /* harmony import */ var _rooms_form_checkin_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../rooms/form/checkin.vue */ "./resources/js/src/pages/rooms/form/checkin.vue");
+/* harmony import */ var _roomlist_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./roomlist.vue */ "./resources/js/src/pages/reservations/roomlist.vue");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
 function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
@@ -1006,6 +1008,12 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -1094,6 +1102,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
 
 
 
@@ -1101,14 +1123,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   components: {
     AdminForm: _form_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
     AdminFilter: _filter_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
-    CheckinForm: _rooms_form_checkin_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+    CheckinForm: _rooms_form_checkin_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
+    RoomList: _roomlist_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_4__["mapGetters"])(["USER_DETAILS"])),
   data: function data(vm) {
     return {
       selectedReservation: {},
-      admin: {},
+      selectedRoom: {},
+      testpayload: {},
       showForm: false,
       isform: false,
+      isroom: false,
       isdelete: false,
       admins: [],
       payload: {
@@ -1174,12 +1200,48 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   created: function created() {//   this.getLoginUser()
   },
   methods: {
-    checkIn: function checkIn() {},
+    checkIn: function checkIn() {
+      var _this = this;
+
+      this.testpayload.user_id = this.USER_DETAILS.id;
+      console.log(this.testpayload, "test val");
+      axios.post("/admin/check-ins", this.testpayload).then(function (_ref) {
+        var data = _ref.data;
+
+        _this.clear();
+
+        _this.$router.push({
+          name: 'rooms'
+        });
+      });
+    },
+    showRoomForm: function showRoomForm(item) {
+      Object.assign(this.selectedReservation, item);
+      console.log(this.selectedReservation, "room,dsssssss");
+      this.isroom = true;
+    },
     showCheckinForm: function showCheckinForm(item) {
-      this.selectedReservation = item;
-      this.selectedReservation.room_guest_extra_person = 0;
-      this.selectedReservation.extra_person_rate = 0;
-      this.selectedReservation.room_guest_start = item.start_date;
+      this.isroom = false;
+      this.selectedRoom = item;
+      var start = this.$moment("".concat(this.selectedReservation.start_date)).format('YYYY-MM-DD h:mm a');
+      var end = this.$moment("".concat(this.selectedReservation.end_date)).format('YYYY-MM-DD h:mm a');
+      this.testpayload = {
+        room_id: item.id,
+        room_type: item.room_type.type,
+        room_number: item.number,
+        room_rate: item.room_type.price,
+        room_extra_person: item.room_type.extra_person_rate,
+        room_extra_hour: item.room_type.extra_hour_rate,
+        room_guest_name: this.selectedReservation.client_name,
+        room_guest_contact: '',
+        room_guest_address: '',
+        room_guest_extra_person: 0,
+        room_guest_start: start,
+        room_guest_end: end,
+        room_total_days: 1,
+        reservation_id: this.selectedReservation.id
+      };
+      console.log(this.selectedRoom, "room,");
       this.isform = true;
     },
     resetFilter: function resetFilter() {
@@ -1198,7 +1260,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.showForm = true;
     },
     fetchPage: function fetchPage() {
-      var _this = this;
+      var _this2 = this;
 
       this.data.isFetching = true;
 
@@ -1206,39 +1268,39 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       params = params + this._createFilterParams(this.data.filter);
       if (this.data.keyword) params = params + '&keyword=' + this.data.keyword;
-      axios.get("/admin/reservations?".concat(params)).then(function (_ref) {
-        var data = _ref.data;
-        _this.admins = data.data;
-        _this.total = data.total;
-        _this.data.isFetching = false;
+      axios.get("/admin/reservations?".concat(params)).then(function (_ref2) {
+        var data = _ref2.data;
+        _this2.admins = data.data;
+        _this2.total = data.total;
+        _this2.data.isFetching = false;
       });
     },
     save: function save() {
-      var _this2 = this;
+      var _this3 = this;
 
       if (this.payload.id) {
         delete this.payload.created_at;
         delete this.payload.updated_at;
-        axios.put("/admin/reservations/".concat(this.payload.id), this.payload).then(function (_ref2) {
-          var data = _ref2.data;
+        axios.put("/admin/reservations/".concat(this.payload.id), this.payload).then(function (_ref3) {
+          var data = _ref3.data;
 
-          _this2.fetchPage();
+          _this3.fetchPage();
 
-          _this2.clear();
+          _this3.clear();
         });
         return;
       }
 
-      axios.post("/admin/reservations", this.payload).then(function (_ref3) {
-        var data = _ref3.data;
+      axios.post("/admin/reservations", this.payload).then(function (_ref4) {
+        var data = _ref4.data;
 
-        _this2.fetchPage();
+        _this3.fetchPage();
 
-        _this2.clear();
+        _this3.clear();
       });
     },
     showEdit: function showEdit(val) {
-      var _this3 = this;
+      var _this4 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
         return _regeneratorRuntime().wrap(function _callee$(_context) {
@@ -1246,10 +1308,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return Object.assign(_this3.payload, val);
+                return Object.assign(_this4.payload, val);
 
               case 2:
-                _this3.showForm = true;
+                _this4.showForm = true;
 
               case 3:
               case "end":
@@ -1266,14 +1328,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.isdelete = true;
     },
     remove: function remove() {
-      var _this4 = this;
+      var _this5 = this;
 
-      axios["delete"]("/admin/reservations/".concat(this.payload.id)).then(function (_ref4) {
-        var data = _ref4.data;
+      axios["delete"]("/admin/reservations/".concat(this.payload.id)).then(function (_ref5) {
+        var data = _ref5.data;
 
-        _this4.fetchPage();
+        _this5.fetchPage();
 
-        _this4.clear();
+        _this5.clear();
       });
     },
     clear: function clear() {
@@ -1285,9 +1347,93 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.payload.password = '';
       this.details = {};
       this.selectedReservation = {};
+      this.selectedRoom = {};
       this.showForm = false;
       this.isform = false;
+      this.isroom = false;
       this.isdelete = false;
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/pages/reservations/roomlist.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/pages/reservations/roomlist.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    show: {},
+    selectedReservation: {}
+  },
+  data: function data() {
+    return {
+      rooms: [],
+      selectedRoom: {}
+    };
+  },
+  methods: {
+    getRooms: function getRooms() {
+      var _this = this;
+
+      axios.get("/admin/rooms?room_type=".concat(this.selectedReservation.room_type_id)).then(function (_ref) {
+        var data = _ref.data;
+        _this.rooms = data.data;
+      });
+    },
+    checkin: function checkin() {
+      if (!this.$refs.form.validate()) return;
+      this.$emit('checkin', this.selectedRoom);
+    }
+  },
+  watch: {
+    "show": {
+      handler: function handler(val) {
+        if (val) {
+          this.getRooms();
+        } else {
+          this.$refs.form.resetValidation();
+        }
+      }
     }
   }
 });
@@ -2471,23 +2617,64 @@ var render = function () {
                       "v-row",
                       [
                         _c(
-                          "v-btn",
+                          "v-tooltip",
                           {
-                            attrs: { color: "success", icon: "" },
-                            on: {
-                              click: function ($event) {
-                                return _vm.showCheckinForm(item)
-                              },
-                            },
+                            attrs: { color: "success", left: "" },
+                            scopedSlots: _vm._u(
+                              [
+                                {
+                                  key: "activator",
+                                  fn: function (ref) {
+                                    var on = ref.on
+                                    var attrs = ref.attrs
+                                    return [
+                                      _c(
+                                        "v-btn",
+                                        _vm._g(
+                                          _vm._b(
+                                            {
+                                              attrs: {
+                                                color: "success",
+                                                icon: "",
+                                              },
+                                              on: {
+                                                click: function ($event) {
+                                                  return _vm.showRoomForm(item)
+                                                },
+                                              },
+                                            },
+                                            "v-btn",
+                                            attrs,
+                                            false
+                                          ),
+                                          on
+                                        ),
+                                        [
+                                          _c(
+                                            "v-icon",
+                                            { attrs: { small: "" } },
+                                            [
+                                              _vm._v(
+                                                "\n                                    check\n                                "
+                                              ),
+                                            ]
+                                          ),
+                                        ],
+                                        1
+                                      ),
+                                    ]
+                                  },
+                                },
+                              ],
+                              null,
+                              true
+                            ),
                           },
                           [
-                            _c("v-icon", { attrs: { small: "" } }, [
-                              _vm._v(
-                                "\n                            mdi-printer\n                        "
-                              ),
-                            ]),
-                          ],
-                          1
+                            _vm._v(
+                              "\n                        Check in\n                    "
+                            ),
+                          ]
                         ),
                         _vm._v(" "),
                         _c("table-action", {
@@ -2542,11 +2729,130 @@ var render = function () {
       _c("checkin-form", {
         attrs: {
           dialog: _vm.isform,
-          selectedRoom: _vm.selectedReservation,
-          payload: _vm.selectedReservation,
+          selectedRoom: _vm.selectedRoom,
+          payload: _vm.testpayload,
         },
-        on: { save: _vm.checkIn, close: _vm.cancel },
+        on: { checkin: _vm.checkIn, close: _vm.cancel },
       }),
+      _vm._v(" "),
+      _c("room-list", {
+        attrs: {
+          show: _vm.isroom,
+          selectedReservation: _vm.selectedReservation,
+        },
+        on: { cancel: _vm.cancel, checkin: _vm.showCheckinForm },
+      }),
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/pages/reservations/roomlist.vue?vue&type=template&id=930520c6&":
+/*!***********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/src/pages/reservations/roomlist.vue?vue&type=template&id=930520c6& ***!
+  \***********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "v-dialog",
+    {
+      attrs: { persistent: "", width: "400" },
+      model: {
+        value: _vm.show,
+        callback: function ($$v) {
+          _vm.show = $$v
+        },
+        expression: "show",
+      },
+    },
+    [
+      _c(
+        "v-card",
+        [
+          _c("v-card-title", [_vm._v("Select Room")]),
+          _vm._v(" "),
+          _c(
+            "v-card-text",
+            [
+              _c(
+                "v-form",
+                { ref: "form", attrs: { "lazy-validation": "" } },
+                [
+                  _c("v-autocomplete", {
+                    attrs: {
+                      items: _vm.rooms,
+                      rules: [
+                        function () {
+                          return !!_vm.selectedRoom || ""
+                        },
+                      ],
+                      "item-text": "number",
+                      "return-object": "",
+                      outlined: "",
+                      dense: "",
+                      label: "Room",
+                      placeholder: "Room",
+                      "hide-details": "auto",
+                    },
+                    model: {
+                      value: _vm.selectedRoom,
+                      callback: function ($$v) {
+                        _vm.selectedRoom = $$v
+                      },
+                      expression: "selectedRoom",
+                    },
+                  }),
+                ],
+                1
+              ),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-card-actions",
+            [
+              _c("v-spacer"),
+              _vm._v(" "),
+              _c(
+                "v-btn",
+                {
+                  attrs: { color: "error" },
+                  on: {
+                    click: function ($event) {
+                      return _vm.$emit("cancel")
+                    },
+                  },
+                },
+                [_vm._v("Cancel")]
+              ),
+              _vm._v(" "),
+              _c(
+                "v-btn",
+                { attrs: { color: "success" }, on: { click: _vm.checkin } },
+                [_vm._v("Check in")]
+              ),
+            ],
+            1
+          ),
+        ],
+        1
+      ),
     ],
     1
   )
@@ -2967,6 +3273,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_template_id_cf6a4f44___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_template_id_cf6a4f44___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/src/pages/reservations/roomlist.vue":
+/*!**********************************************************!*\
+  !*** ./resources/js/src/pages/reservations/roomlist.vue ***!
+  \**********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _roomlist_vue_vue_type_template_id_930520c6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./roomlist.vue?vue&type=template&id=930520c6& */ "./resources/js/src/pages/reservations/roomlist.vue?vue&type=template&id=930520c6&");
+/* harmony import */ var _roomlist_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./roomlist.vue?vue&type=script&lang=js& */ "./resources/js/src/pages/reservations/roomlist.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _roomlist_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _roomlist_vue_vue_type_template_id_930520c6___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _roomlist_vue_vue_type_template_id_930520c6___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/src/pages/reservations/roomlist.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/src/pages/reservations/roomlist.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/src/pages/reservations/roomlist.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_roomlist_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./roomlist.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/pages/reservations/roomlist.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_roomlist_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/src/pages/reservations/roomlist.vue?vue&type=template&id=930520c6&":
+/*!*****************************************************************************************!*\
+  !*** ./resources/js/src/pages/reservations/roomlist.vue?vue&type=template&id=930520c6& ***!
+  \*****************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_roomlist_vue_vue_type_template_id_930520c6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./roomlist.vue?vue&type=template&id=930520c6& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/src/pages/reservations/roomlist.vue?vue&type=template&id=930520c6&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_roomlist_vue_vue_type_template_id_930520c6___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_roomlist_vue_vue_type_template_id_930520c6___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
