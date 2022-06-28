@@ -159,7 +159,7 @@
                             <v-col align="end">
                                 <v-col class="col-text-field" align="end">
                                     <v-btn color="error" @click="$emit('close')">Cancel</v-btn>
-                                    <v-btn color="success" @click="extend_dialog=true" class="ml-2">Extend Time</v-btn>
+                                    <v-btn color="success" @click="extend_dialog=true" class="ml-2">Update Checkin</v-btn>
                                     <v-btn color="success" @click="checkout" class="ml-2">Check Out</v-btn>
                                 </v-col>
                             </v-col>
@@ -171,13 +171,24 @@
         <v-dialog v-model="extend_dialog" persistent width="400">
             <v-card>
                 <v-card-title>
-                    Extend Hours for Room {{selectedRoom.number}}
+                    Update Checkin Information {{selectedRoom.number}}
                 </v-card-title>
                 <v-card-text>
                     <v-form ref="form" lazy-validation>
                         <v-container>
                             <v-row>
                                 <v-col class="col-text-field" cols="12" sm="12">
+                                    <v-col cols="12"  class="d-flex child-flex" style="padding: 0px !important">
+                                        <div class="mr-2">
+                                            <label>Room Rate</label>
+                                            <v-text-field
+                                                :value="_formatNumber(selectedRoom.room_type.price)"
+                                                readonly
+                                                filled
+                                                dense
+                                            ></v-text-field>
+                                        </div>
+                                    </v-col>
                                     <v-col cols="12"  class="d-flex child-flex" style="padding: 0px !important">
                                         <div class="mr-2">
                                             <label>Extra Hour Rate</label>
@@ -188,16 +199,49 @@
                                                 dense
                                             ></v-text-field>
                                         </div>
+                                        <div class="mr-2">
+                                            <label>Extra Person Rate</label>
+                                            <v-text-field
+                                                :value="_formatNumber(selectedRoom.room_type.extra_person_rate)"
+                                                readonly
+                                                filled
+                                                dense
+                                            ></v-text-field>
+                                        </div>
+                                    </v-col>
+                                    <v-col cols="12"  class="d-flex child-flex" style="padding: 0px !important">
+                                        <div class="mr-2">
+                                            <label>Enter Total Days to extend</label>
+                                            <v-text-field
+                                                v-model="updatePayload.day"
+                                                type="number"
+                                                filled
+                                                dense
+                                                :rules="[() => updatePayload.day >= 0 || '']"
+                                            ></v-text-field>
+                                        </div>
                                     </v-col>
                                     <v-col cols="12"  class="d-flex child-flex" style="padding: 0px !important">
                                         <div class="mr-2">
                                             <label>Enter Total Hours to extend</label>
                                             <v-text-field
-                                                v-model="total_extend"
+                                                v-model="updatePayload.hour"
                                                 type="number"
                                                 filled
                                                 dense
-                                                :rules="[() => total_extend > 0 || 'must be greater than zero']"
+                                                :rules="[() => updatePayload.hour >= 0 || '']"
+                                            ></v-text-field>
+                                        </div>
+                                    </v-col>
+                                    <v-col cols="12"  class="d-flex child-flex" style="padding: 0px !important">
+                                        <div class="mr-2">
+                                            <label>Enter additional persons</label>
+                                            <v-text-field
+                                                v-model="updatePayload.person"
+                                                type="number"
+                                                filled
+                                                dense
+                                                :rules="[() => updatePayload.person >= 0 || '']"
                                             ></v-text-field>
                                         </div>
                                     </v-col>
@@ -205,7 +249,7 @@
                                         <div class="mr-2">
                                             <label>Total Payment</label>
                                             <v-text-field
-                                                :value="_formatNumber(selectedRoom.room_type.extra_hour_rate * total_extend)"
+                                                :value="_formatNumber(newPayment)"
                                                 readonly
                                                 filled
                                                 dense
@@ -215,7 +259,7 @@
                                     <v-col align="end">
                                         <v-col class="col-text-field" align="end">
                                             <v-btn color="error" @click="closeExtendDialog">Cancel</v-btn>
-                                            <v-btn color="success" @click="extendHours" class="ml-2">Extend</v-btn>
+                                            <v-btn color="success" @click="extendHours" class="ml-2">Update</v-btn>
                                         </v-col>
                                     </v-col>
                                 </v-col>
@@ -246,19 +290,27 @@ export default {
             confirm_type: '',
             confirm_dialog: false,
             extend_dialog: false,
-            total_extend: 0
+            updatePayload: {
+                day: 0,
+                hour: 0,
+                person: 0
+            }
         }
     },
     methods: {
         closeExtendDialog() {
             this.extend_dialog = false
-            this.total_extend = 0
+            this.updatePayload = {
+                day: 0,
+                hour: 0,
+                person: 0
+            }
         },
         extendHours() {
             if(!this.$refs.form.validate()) return;
 
             this.confirm_details.title = 'Extend'
-            this.confirm_details.message = `Continue to extend hours?`
+            this.confirm_details.message = `Continue to update checkin information?`
             this.confirm_type = 'extend'
             this.confirm_dialog = true
         },
@@ -270,7 +322,7 @@ export default {
         },
         confirm() {
             if(this.confirm_type == 'extend'){
-                this.$emit('extend', this.total_extend)
+                this.$emit('extend', this.updatePayload)
                 this.closeExtendDialog()
             } else {
                 this.$emit('toggle', 2, this.selectedRoom.id)
@@ -294,6 +346,11 @@ export default {
                 return 1
 
             return Math.round(totalDays)
+        },
+        newPayment() {
+            return (this.selectedRoom.room_type.price * this.updatePayload.day) 
+                + (this.selectedRoom.room_type.extra_hour_rate * this.updatePayload.hour) 
+                + (this.selectedRoom.room_type.extra_person_rate * this.updatePayload.person)
         }
     }
 }

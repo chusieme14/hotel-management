@@ -57,11 +57,8 @@ export default {
                 this.getRooms()
             })
         },
-        extendHours(totalHours){
-            let payload = {
-                totalHours: totalHours,
-                roomType: this.selectedRoom.room_type
-            }
+        extendHours(payload){
+            payload.roomType = this.selectedRoom.room_type
             axios.put(`/admin/check-ins/${this.selectedRoom.check_in.id}/extend`, payload).then(({data})=>{
                 this.selectedRoom.check_in = data
             })

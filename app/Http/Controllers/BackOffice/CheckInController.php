@@ -107,15 +107,26 @@ class CheckInController extends Controller
     {
         $checkin = CheckIn::find($id);
 
-        $new_end = Carbon::parse($checkin->end_date)->addHours($request->totalHours);
-        $extra_hour_pay =  $request->roomType['extra_person_rate'] * $request->totalHours;
-        $new_extra_hour = $checkin->extra_hours + $request->totalHours;
-        $total_paid = $checkin->total_paid + $extra_hour_pay;
+        $new_end = Carbon::parse($checkin->end_date)->addDays($request->day); 
+        $new_end = $new_end->addHours($request->hour);
+
+        $extra_day_pay =  $request->roomType['price'] * $request->day;
+        $extra_hour_pay =  $request->roomType['extra_hour_rate'] * $request->hour;
+        $extra_person_pay =  $request->roomType['extra_person_rate'] * $request->person;
+
+        $new_extra_hour = $checkin->extra_hours + $request->hour;
+        $new_extra_person = $checkin->extra_persons + $request->person;
+
+        $new_regular_bill = $checkin->regular_bill + $extra_day_pay;
+
+        $total_paid = $checkin->total_paid + $extra_hour_pay + $extra_day_pay + $extra_person_pay;
 
         $checkin->update([
             "end_date" => $new_end,
             "extra_hours" => $new_extra_hour,
-            "total_paid" => $total_paid
+            "extra_persons" => $new_extra_person,
+            "regular_bill" => $new_regular_bill,
+            "total_paid" => $total_paid,
         ]);
 
         return CheckIn::find($id);
