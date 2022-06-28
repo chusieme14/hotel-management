@@ -15,11 +15,18 @@ class Rooms {
     public function searchable()
     {
         // $this->searchColumns();
-        // $this->sortBy();
+        $this->byType();
         $this->model->with('room_type');
         $per_page = Request()->per_page;
         if ($per_page=='-1' || !isset(Request()->per_page)) return $this->model->paginate($this->model->count());
         return $this->model->paginate($per_page);
+    }
+
+    public function byType()
+    {
+        if(Request()->room_type){
+            $this->model->where('room_type_id', Request()->room_type)->where('status',0);
+        }
     }
 
     public function searchColumns()

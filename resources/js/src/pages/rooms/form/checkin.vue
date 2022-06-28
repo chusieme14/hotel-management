@@ -3,14 +3,14 @@
     <v-dialog v-if="dialog" v-model="dialog" persistent width="1200">
         <v-form ref="form" lazy-validation>
         <v-card>
-            <v-card-title>CHECK IN FOR ROOM {{payload.room_number}}</v-card-title>
+            <v-card-title>CHECK IN FOR ROOM {{payload.room_number||''}}</v-card-title>
             <v-card-text>
                 <v-row>
                     <v-col cols="6">
                         <v-container>
                             <v-row>
                                 <v-col class="col-text-field" cols="12" sm="12">
-                                    GUEST'S INFOMATION
+                                    GUEST'S INFORMATION
                                 </v-col>
                                 <v-col class="col-text-field" cols="12" sm="12">
                                     <v-col cols="12"  class="d-flex child-flex" style="padding: 0px !important">
@@ -52,7 +52,7 @@
                         <v-container>
                             <v-row>
                                 <v-col class="col-text-field" cols="12" sm="12">
-                                    ROOOM INFOMATION
+                                    ROOM INFORMATION
                                 </v-col>
                                 <!-- {{validate}} -->
                                 <v-col class="col-text-field" cols="12" sm="12">
@@ -314,8 +314,11 @@ export default {
     },
     computed:{
         computeAdditional(){
-            if(this.selectedRoom.room_type)
+            if(this.selectedRoom.room_type.id){
+                console.log(this.selectedRoom.room_type.extra_person_rate, "this.selectedRoom.room_type.extra_person_rate")
+                console.log(this.payload.room_guest_extra_person, "this.payload.room_guest_extra_person")
                 return this.payload.total_ads = this.selectedRoom.room_type.extra_person_rate * this.payload.room_guest_extra_person
+            }
             
             return 0
         },
@@ -323,16 +326,23 @@ export default {
             let start = this.$moment(this.payload.room_guest_start).unix()
             let end = this.$moment(this.payload.room_guest_end).unix()
             let totalDays = (end - start)/86400
+            console.log(start,"start kalmbre")
+            console.log(end, "end kalmbre")
+            console.log(totalDays, "totalDays kalmbre")
             if(totalDays > 0 && totalDays < 1)
                 return  this.payload.room_total_days = 1
 
-            return this.payload.room_total_days = Math.round(totalDays)
+            if(this.payload.from=="reservation"){
+                return this.payload.room_total_days = Math.ceil(totalDays)
+            }
+                return this.payload.room_total_days = Math.round(totalDays)
         }
     },
     watch: {
         dialog: {
             handler(val) {
                 if(val) {
+                    console.log(this.payload,"payload kunu")
                     this.start_time.time = this.$moment(this.payload.room_guest_start).format('h:mm')
                     this.end_time.time = this.$moment(this.payload.room_guest_end).format('h:mm')
                 }

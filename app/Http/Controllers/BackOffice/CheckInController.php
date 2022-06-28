@@ -5,6 +5,7 @@ namespace App\Http\Controllers\BackOffice;
 use App\Helpers\SearchFilterHelpers\CheckIns;
 use App\Http\Controllers\Controller;
 use App\Models\CheckIn;
+use App\Models\Reservation;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -50,12 +51,15 @@ class CheckInController extends Controller
             'start_date' => Carbon::parse($request->room_guest_start),
             'end_date' => Carbon::parse($request->room_guest_end),
         ]);
-        if(Carbon::parse($request->room_guest_start)->format('Y-m-d')==Carbon::now()->format('Y-m-d')){
-            $checkin->room()->update([
-                'status' => 1,
-                'check_in_id' => $checkin->id
-            ]);
+        $checkin->room()->update([
+            'status' => 1,
+            'check_in_id' => $checkin->id
+        ]);
+        if(isset($request->reservation_id)){
+            Reservation::where('id', $request->reservation_id)->delete();
         }
+        // if(Carbon::parse($request->room_guest_start)->format('Y-m-d')==Carbon::now()->timezone('Asia/Manila')->format('Y-m-d')){
+        // }
     }
 
     /**

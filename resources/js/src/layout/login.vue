@@ -13,7 +13,7 @@
                 <h2>Sign in</h2>
                 <v-layout justify-center row>
                     <v-flex md10>
-                        <v-label>Emial</v-label>
+                        <v-label>Email</v-label>
                         <v-text-field
                             v-model="credential.email"
                             solo
