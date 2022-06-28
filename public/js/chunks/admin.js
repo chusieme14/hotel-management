@@ -1097,6 +1097,50 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     dialog: {},
@@ -1108,18 +1152,26 @@ __webpack_require__.r(__webpack_exports__);
       confirm_type: '',
       confirm_dialog: false,
       extend_dialog: false,
-      total_extend: 0
+      updatePayload: {
+        day: 0,
+        hour: 0,
+        person: 0
+      }
     };
   },
   methods: {
     closeExtendDialog: function closeExtendDialog() {
       this.extend_dialog = false;
-      this.total_extend = 0;
+      this.updatePayload = {
+        day: 0,
+        hour: 0,
+        person: 0
+      };
     },
     extendHours: function extendHours() {
       if (!this.$refs.form.validate()) return;
       this.confirm_details.title = 'Extend';
-      this.confirm_details.message = "Continue to extend hours?";
+      this.confirm_details.message = "Continue to update checkin information?";
       this.confirm_type = 'extend';
       this.confirm_dialog = true;
     },
@@ -1131,7 +1183,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     confirm: function confirm() {
       if (this.confirm_type == 'extend') {
-        this.$emit('extend', this.total_extend);
+        this.$emit('extend', this.updatePayload);
         this.closeExtendDialog();
       } else {
         this.$emit('toggle', 2, this.selectedRoom.id);
@@ -1153,6 +1205,9 @@ __webpack_require__.r(__webpack_exports__);
       var totalDays = (end - start) / 86400;
       if (totalDays > 0 && totalDays < 1) return 1;
       return Math.round(totalDays);
+    },
+    newPayment: function newPayment() {
+      return this.selectedRoom.room_type.price * this.updatePayload.day + this.selectedRoom.room_type.extra_hour_rate * this.updatePayload.hour + this.selectedRoom.room_type.extra_person_rate * this.updatePayload.person;
     }
   }
 });
@@ -1243,13 +1298,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         _this.getRooms();
       });
     },
-    extendHours: function extendHours(totalHours) {
+    extendHours: function extendHours(payload) {
       var _this2 = this;
 
-      var payload = {
-        totalHours: totalHours,
-        roomType: this.selectedRoom.room_type
-      };
+      payload.roomType = this.selectedRoom.room_type;
       axios.put("/admin/check-ins/".concat(this.selectedRoom.check_in.id, "/extend"), payload).then(function (_ref2) {
         var data = _ref2.data;
         _this2.selectedRoom.check_in = data;
@@ -3285,7 +3337,7 @@ var render = function () {
                                             },
                                           },
                                         },
-                                        [_vm._v("Extend Time")]
+                                        [_vm._v("Update Checkin")]
                                       ),
                                       _vm._v(" "),
                                       _c(
@@ -3337,7 +3389,7 @@ var render = function () {
                 [
                   _c("v-card-title", [
                     _vm._v(
-                      "\n                Extend Hours for Room " +
+                      "\n                Update Checkin Information " +
                         _vm._s(_vm.selectedRoom.number) +
                         "\n            "
                     ),
@@ -3378,6 +3430,41 @@ var render = function () {
                                             { staticClass: "mr-2" },
                                             [
                                               _c("label", [
+                                                _vm._v("Room Rate"),
+                                              ]),
+                                              _vm._v(" "),
+                                              _c("v-text-field", {
+                                                attrs: {
+                                                  value: _vm._formatNumber(
+                                                    _vm.selectedRoom.room_type
+                                                      .price
+                                                  ),
+                                                  readonly: "",
+                                                  filled: "",
+                                                  dense: "",
+                                                },
+                                              }),
+                                            ],
+                                            1
+                                          ),
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-col",
+                                        {
+                                          staticClass: "d-flex child-flex",
+                                          staticStyle: {
+                                            padding: "0px !important",
+                                          },
+                                          attrs: { cols: "12" },
+                                        },
+                                        [
+                                          _c(
+                                            "div",
+                                            { staticClass: "mr-2" },
+                                            [
+                                              _c("label", [
                                                 _vm._v("Extra Hour Rate"),
                                               ]),
                                               _vm._v(" "),
@@ -3390,6 +3477,82 @@ var render = function () {
                                                   readonly: "",
                                                   filled: "",
                                                   dense: "",
+                                                },
+                                              }),
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "div",
+                                            { staticClass: "mr-2" },
+                                            [
+                                              _c("label", [
+                                                _vm._v("Extra Person Rate"),
+                                              ]),
+                                              _vm._v(" "),
+                                              _c("v-text-field", {
+                                                attrs: {
+                                                  value: _vm._formatNumber(
+                                                    _vm.selectedRoom.room_type
+                                                      .extra_person_rate
+                                                  ),
+                                                  readonly: "",
+                                                  filled: "",
+                                                  dense: "",
+                                                },
+                                              }),
+                                            ],
+                                            1
+                                          ),
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-col",
+                                        {
+                                          staticClass: "d-flex child-flex",
+                                          staticStyle: {
+                                            padding: "0px !important",
+                                          },
+                                          attrs: { cols: "12" },
+                                        },
+                                        [
+                                          _c(
+                                            "div",
+                                            { staticClass: "mr-2" },
+                                            [
+                                              _c("label", [
+                                                _vm._v(
+                                                  "Enter Total Days to extend"
+                                                ),
+                                              ]),
+                                              _vm._v(" "),
+                                              _c("v-text-field", {
+                                                attrs: {
+                                                  type: "number",
+                                                  filled: "",
+                                                  dense: "",
+                                                  rules: [
+                                                    function () {
+                                                      return (
+                                                        _vm.updatePayload.day >=
+                                                          0 || ""
+                                                      )
+                                                    },
+                                                  ],
+                                                },
+                                                model: {
+                                                  value: _vm.updatePayload.day,
+                                                  callback: function ($$v) {
+                                                    _vm.$set(
+                                                      _vm.updatePayload,
+                                                      "day",
+                                                      $$v
+                                                    )
+                                                  },
+                                                  expression:
+                                                    "updatePayload.day",
                                                 },
                                               }),
                                             ],
@@ -3426,18 +3589,77 @@ var render = function () {
                                                   rules: [
                                                     function () {
                                                       return (
-                                                        _vm.total_extend > 0 ||
-                                                        "must be greater than zero"
+                                                        _vm.updatePayload
+                                                          .hour >= 0 || ""
                                                       )
                                                     },
                                                   ],
                                                 },
                                                 model: {
-                                                  value: _vm.total_extend,
+                                                  value: _vm.updatePayload.hour,
                                                   callback: function ($$v) {
-                                                    _vm.total_extend = $$v
+                                                    _vm.$set(
+                                                      _vm.updatePayload,
+                                                      "hour",
+                                                      $$v
+                                                    )
                                                   },
-                                                  expression: "total_extend",
+                                                  expression:
+                                                    "updatePayload.hour",
+                                                },
+                                              }),
+                                            ],
+                                            1
+                                          ),
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-col",
+                                        {
+                                          staticClass: "d-flex child-flex",
+                                          staticStyle: {
+                                            padding: "0px !important",
+                                          },
+                                          attrs: { cols: "12" },
+                                        },
+                                        [
+                                          _c(
+                                            "div",
+                                            { staticClass: "mr-2" },
+                                            [
+                                              _c("label", [
+                                                _vm._v(
+                                                  "Enter additional persons"
+                                                ),
+                                              ]),
+                                              _vm._v(" "),
+                                              _c("v-text-field", {
+                                                attrs: {
+                                                  type: "number",
+                                                  filled: "",
+                                                  dense: "",
+                                                  rules: [
+                                                    function () {
+                                                      return (
+                                                        _vm.updatePayload
+                                                          .person >= 0 || ""
+                                                      )
+                                                    },
+                                                  ],
+                                                },
+                                                model: {
+                                                  value:
+                                                    _vm.updatePayload.person,
+                                                  callback: function ($$v) {
+                                                    _vm.$set(
+                                                      _vm.updatePayload,
+                                                      "person",
+                                                      $$v
+                                                    )
+                                                  },
+                                                  expression:
+                                                    "updatePayload.person",
                                                 },
                                               }),
                                             ],
@@ -3467,9 +3689,7 @@ var render = function () {
                                               _c("v-text-field", {
                                                 attrs: {
                                                   value: _vm._formatNumber(
-                                                    _vm.selectedRoom.room_type
-                                                      .extra_hour_rate *
-                                                      _vm.total_extend
+                                                    _vm.newPayment
                                                   ),
                                                   readonly: "",
                                                   filled: "",
@@ -3514,7 +3734,7 @@ var render = function () {
                                                     click: _vm.extendHours,
                                                   },
                                                 },
-                                                [_vm._v("Extend")]
+                                                [_vm._v("Update")]
                                               ),
                                             ],
                                             1
