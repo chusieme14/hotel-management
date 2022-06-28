@@ -36,7 +36,7 @@
                     {{item.room.number}}
                 </template>
                 <template v-slot:item.status="{ item }">
-                    {{item.status==1?'Active':'Deactivated'}}
+                    {{item.status==1?'Paid':'Unpaid'}}
                 </template>
                 <template v-slot:item.updated_at="{ item }">
                     {{_formatDate(item.updated_at)}}
@@ -172,7 +172,7 @@ export default {
                     text: 'Total bill',
                     align: 'start',
                     sortable: false,
-                    value: 'total_bill',
+                    value: 'total_paid',
                 },
                 // {
                 //     text: 'Action',

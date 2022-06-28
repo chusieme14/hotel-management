@@ -486,7 +486,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         text: 'Total bill',
         align: 'start',
         sortable: false,
-        value: 'total_bill'
+        value: 'total_paid'
       } // {
       //     text: 'Action',
       //     align: 'start',
@@ -1863,7 +1863,7 @@ var render = function () {
                   return [
                     _vm._v(
                       "\n                " +
-                        _vm._s(item.status == 1 ? "Active" : "Deactivated") +
+                        _vm._s(item.status == 1 ? "Paid" : "Unpaid") +
                         "\n            "
                     ),
                   ]
