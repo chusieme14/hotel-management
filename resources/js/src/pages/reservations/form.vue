@@ -12,9 +12,17 @@
                                 v-model="payload.client_name"
                                 outlined
                                 dense
-
                                 label="Client name"
                                 placeholder="Client name"
+                            ></v-text-field>
+                            <v-text-field
+                                :rules="[() => !!payload.contact_number ||  '']"
+                                v-model="payload.contact_number"
+                                outlined
+                                dense
+                                label="Contact number"
+                                placeholder="Contact number"
+                                type="number"
                             ></v-text-field>
                             
                             <v-menu

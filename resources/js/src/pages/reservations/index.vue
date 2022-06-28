@@ -49,11 +49,11 @@
                 </template> -->
                 <template v-slot:item.action="{ item }">
                     <v-row>
-                        <!-- <v-btn color="warning" icon>
+                        <v-btn @click="showCheckinForm(item)" color="success" icon>
                             <v-icon small>
                                 mdi-printer
                             </v-icon>
-                        </v-btn> -->
+                        </v-btn>
                         <table-action :item="item" 
                             @editItem="showEdit" 
                             @deleteItem="showDelete"
@@ -83,20 +83,25 @@
             @cancel="cancel"
             @confirm="remove"
         />
+    <checkin-form :dialog="isform" :selectedRoom="selectedReservation" :payload="selectedReservation" @save="checkIn" @close="cancel"/>
     </v-card>
 </template>
 <script>
 import AdminForm from './form.vue'
 import AdminFilter from './filter.vue'
+import CheckinForm from '../rooms/form/checkin.vue'
 export default {
     components:{
         AdminForm,
-        AdminFilter
+        AdminFilter,
+        CheckinForm
     },
     data(vm){
         return {
+            selectedReservation:{},
             admin:{},
             showForm:false,
+            isform:false,
             isdelete:false,
             admins:[],
             payload:{
@@ -128,6 +133,12 @@ export default {
                     align: 'start',
                     sortable: true,
                     value: 'client_name',
+                },
+                {
+                    text: 'Contact number',
+                    align: 'start',
+                    sortable: true,
+                    value: 'contact_number',
                 },
                 {
                     text: 'Start date',
@@ -166,6 +177,16 @@ export default {
     //   this.getLoginUser()
     },
     methods:{
+        checkIn(){
+
+        },
+        showCheckinForm(item){
+            this.selectedReservation = item
+            this.selectedReservation.room_guest_extra_person = 0
+            this.selectedReservation.extra_person_rate = 0
+            this.selectedReservation.room_guest_start = item.start_date
+            this.isform = true
+        },
         resetFilter(){
             this.data.filter={};
             this.fetchPage()
@@ -232,7 +253,9 @@ export default {
             this.payload.shift = null
             this.payload.password = ''
             this.details = {}
+            this.selectedReservation = {}
             this.showForm = false
+            this.isform = false
             this.isdelete = false
         }
       

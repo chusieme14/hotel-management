@@ -3,14 +3,14 @@
     <v-dialog v-if="dialog" v-model="dialog" persistent width="1200">
         <v-form ref="form" lazy-validation>
         <v-card>
-            <v-card-title>CHECK IN FOR ROOM {{payload.room_number}}</v-card-title>
+            <v-card-title>CHECK IN FOR ROOM {{payload.room_number||''}}</v-card-title>
             <v-card-text>
                 <v-row>
                     <v-col cols="6">
                         <v-container>
                             <v-row>
                                 <v-col class="col-text-field" cols="12" sm="12">
-                                    GUEST'S INFOMATION
+                                    GUEST'S INFORMATION
                                 </v-col>
                                 <v-col class="col-text-field" cols="12" sm="12">
                                     <v-col cols="12"  class="d-flex child-flex" style="padding: 0px !important">
@@ -52,7 +52,7 @@
                         <v-container>
                             <v-row>
                                 <v-col class="col-text-field" cols="12" sm="12">
-                                    ROOOM INFOMATION
+                                    ROOM INFORMATION
                                 </v-col>
                                 <!-- {{validate}} -->
                                 <v-col class="col-text-field" cols="12" sm="12">
