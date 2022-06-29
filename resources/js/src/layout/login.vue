@@ -2,7 +2,7 @@
     <div class="login-main-container">
         <div class="left-container">
             <div class="left-container1">
-                <!-- <img src="/sample/login.png" alt=""> -->
+                <img src="/images/small_logo.png" alt="">
             </div>
         </div>
         <div class="right-container">

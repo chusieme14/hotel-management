@@ -1863,7 +1863,7 @@ var render = function () {
                   return [
                     _vm._v(
                       "\n                " +
-                        _vm._s(item.status == 1 ? "Paid" : "Unpaid") +
+                        _vm._s(item.status == 1 ? "Unpaid" : "Paid") +
                         "\n            "
                     ),
                   ]

@@ -36,7 +36,7 @@
                     {{item.room.number}}
                 </template>
                 <template v-slot:item.status="{ item }">
-                    {{item.status==1?'Paid':'Unpaid'}}
+                    {{item.status==1?'Unpaid':'Paid'}}
                 </template>
                 <template v-slot:item.updated_at="{ item }">
                     {{_formatDate(item.updated_at)}}

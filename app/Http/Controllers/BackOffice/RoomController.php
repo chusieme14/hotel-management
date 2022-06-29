@@ -4,6 +4,7 @@ namespace App\Http\Controllers\BackOffice;
 
 use App\Helpers\SearchFilterHelpers\Rooms;
 use App\Http\Controllers\Controller;
+use App\Models\CheckIn;
 use App\Models\Room;
 use Illuminate\Http\Request;
 
@@ -67,6 +68,7 @@ class RoomController extends Controller
     public function toogleStatus(Request $request, $id)
     {
         $room = Room::find($id);
+        CheckIn::where('id', $room->check_in_id)->update(['status' => 2]);
         $room->update([
             'status' => $request->status,
             'check_in_id' => null,
