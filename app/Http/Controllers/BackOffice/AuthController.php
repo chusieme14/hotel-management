@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\UserLog;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Cookie;
@@ -41,10 +42,10 @@ class AuthController extends Controller
     }
 
     public function logout(Request $request){
-        $user = User::where('id',Auth::guard('web')->user()->id)->orderBy('id', 'desc')->first();
+        $log = UserLog::where('user_id',Auth::guard('web')->user()->id)->orderBy('id', 'desc')->first();
 
-        if(!$user->isadmin){
-            $user->logs()->update([
+        if(!Auth::guard('web')->user()->isadmin){
+            $log->update([
                 'logout' => Carbon::now()->timezone('Asia/Manila'),
             ]);
         }
