@@ -41,7 +41,7 @@ class AuthController extends Controller
     }
 
     public function logout(Request $request){
-        $user = User::where('id',Auth::guard('web')->user()->id)->first();
+        $user = User::where('id',Auth::guard('web')->user()->id)->orderBy('id', 'desc')->first();
 
         if(!$user->isadmin){
             $user->logs()->update([
