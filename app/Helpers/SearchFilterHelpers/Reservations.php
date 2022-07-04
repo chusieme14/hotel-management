@@ -46,7 +46,7 @@ class Reservations {
     public function byStartDate()
     {
         if(Request()->start_date){
-            $this->model->whereDate('start_date',Carbon::parse(Request()->start_date)->subDay());
+            $this->model->whereDate('start_date',Carbon::parse(Request()->start_date));
         }
     }
 
