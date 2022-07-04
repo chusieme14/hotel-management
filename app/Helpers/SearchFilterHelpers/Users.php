@@ -3,6 +3,7 @@
 namespace App\Helpers\SearchFilterHelpers;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class Users {
 
@@ -17,7 +18,7 @@ class Users {
         $this->sortBy();
         $per_page = Request()->per_page;
         if ($per_page=='-1' || !isset(Request()->per_page)) return $this->model->paginate($this->model->count());
-        $this->model->where('isadmin', false);
+        $this->model->where('isadmin', false)->where('id', Auth::guard('web')->user()->id);
         return $this->model->paginate($per_page);
     }
 
