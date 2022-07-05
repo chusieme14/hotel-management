@@ -65,19 +65,19 @@
                 setInterval(() => {
                     let time_rem = ''
                     if(this.room.status == 1) {
-                        if(this.$moment().unix() > this.$moment(this.room.check_in.end_date).unix()){
+                        if(this.$moment().utc().unix() > this.$moment(this.room.check_in.end_date).utc().unix()){
                             this.time.status = "Time"
                             this.time.text = "since"
                             this.time.icon = "mdi-timer"
                             this.time.color = "#D50000"
-                            time_rem = (this.$moment().diff(this.$moment(this.room.check_in.end_date), 'seconds'))
+                            time_rem = (this.$moment().utc().diff(this.$moment(this.room.check_in.end_date).utc(), 'seconds'))
                         }
                         else {
                             this.time.status = "Occupied"
                             this.time.text = "Time Remaining"
                             this.time.icon = "mdi-sleep"
                             this.time.color = "#FF6D00"
-                            time_rem = (this.$moment(this.room.check_in.end_date).diff(this.$moment(), 'seconds'))
+                            time_rem = (this.$moment(this.room.check_in.end_date).utc().diff(this.$moment().utc(), 'seconds'))
                         }
                     }
                     else if(this.room.status == 2) {
@@ -85,7 +85,7 @@
                         this.time.text = "Since"
                         this.time.icon = "mdi-broom"
                         this.time.color = "#006064"
-                        time_rem = (this.$moment().diff(this.$moment(this.room.updated_at), 'seconds'))
+                        time_rem = (this.$moment().utc().diff(this.$moment(this.room.updated_at).utc(), 'seconds'))
                     }
                     else{
                         this.time.status = 'available',

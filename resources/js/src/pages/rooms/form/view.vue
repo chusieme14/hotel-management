@@ -62,7 +62,7 @@
                                 </v-col>
                                 <v-col cols="12"  class="d-flex child-flex" style="padding: 0px !important">
                                    <div class="mr-2">
-                                        <label>Initial Total</label>
+                                        <label>Start Date</label>
                                         <v-text-field
                                             :value="$moment(selectedRoom.check_in.start_date).format('YYYY-MM-DD hh:mm a')"
                                             readonly
@@ -71,7 +71,7 @@
                                         ></v-text-field>
                                     </div>
                                     <div class="mr-2">
-                                        <label>Total Bill</label>
+                                        <label>End Date</label>
                                         <v-text-field
                                             :value="$moment(selectedRoom.check_in.end_date).format('YYYY-MM-DD hh:mm a')"
                                             readonly
