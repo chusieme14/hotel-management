@@ -1815,25 +1815,25 @@ __webpack_require__.r(__webpack_exports__);
         var time_rem = '';
 
         if (_this.room.status == 1) {
-          if (_this.$moment().unix() > _this.$moment(_this.room.check_in.end_date).unix()) {
+          if (_this.$moment().utc().unix() > _this.$moment(_this.room.check_in.end_date).utc().unix()) {
             _this.time.status = "Time";
             _this.time.text = "since";
             _this.time.icon = "mdi-timer";
             _this.time.color = "#D50000";
-            time_rem = _this.$moment().diff(_this.$moment(_this.room.check_in.end_date), 'seconds');
+            time_rem = _this.$moment().utc().diff(_this.$moment(_this.room.check_in.end_date).utc(), 'seconds');
           } else {
             _this.time.status = "Occupied";
             _this.time.text = "Time Remaining";
             _this.time.icon = "mdi-sleep";
             _this.time.color = "#FF6D00";
-            time_rem = _this.$moment(_this.room.check_in.end_date).diff(_this.$moment(), 'seconds');
+            time_rem = _this.$moment(_this.room.check_in.end_date).utc().diff(_this.$moment().utc(), 'seconds');
           }
         } else if (_this.room.status == 2) {
           _this.time.status = "Cleaning";
           _this.time.text = "Since";
           _this.time.icon = "mdi-broom";
           _this.time.color = "#006064";
-          time_rem = _this.$moment().diff(_this.$moment(_this.room.updated_at), 'seconds');
+          time_rem = _this.$moment().utc().diff(_this.$moment(_this.room.updated_at).utc(), 'seconds');
         } else {
           _this.time.status = 'available', _this.time.text = "available", _this.time.icon = 'bed', _this.time.color = '#00C853';
         }
@@ -3031,9 +3031,7 @@ var render = function () {
                                         "div",
                                         { staticClass: "mr-2" },
                                         [
-                                          _c("label", [
-                                            _vm._v("Initial Total"),
-                                          ]),
+                                          _c("label", [_vm._v("Start Date")]),
                                           _vm._v(" "),
                                           _c("v-text-field", {
                                             attrs: {
@@ -3056,7 +3054,7 @@ var render = function () {
                                         "div",
                                         { staticClass: "mr-2" },
                                         [
-                                          _c("label", [_vm._v("Total Bill")]),
+                                          _c("label", [_vm._v("End Date")]),
                                           _vm._v(" "),
                                           _c("v-text-field", {
                                             attrs: {
